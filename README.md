@@ -335,9 +335,9 @@
                     <label for="pagamento">Status do Pagamento da Entrada <span class="required">*</span></label>
                     <select id="pagamento" name="pagamento" required>
                         <option value="">Selecione o status do pagamento</option>
-                        <option value="ENTRADA-PRÉ">💰 Entrada Pré Inscrição (R$ 200+)</option>
-                        <option value="RETIRO-INTEGRAL">🎯 Retiro Integral</option>
-                        <option value="PAGAR-DIFERENÇA">📅 Pagar Diferença</option>
+                        <option value="ENTRADA-PRÉ"> Entrada Pré Inscrição (R$ 200+)</option>
+                        <option value="RETIRO-INTEGRAL"> Retiro Integral</option>
+                        <option value="PAGAR-DIFERENÇA"> Pagar Diferença</option>
                     </select>
                 </div>
 
