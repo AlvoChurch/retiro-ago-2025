@@ -67,10 +67,7 @@
         <div class="logo-circular">
             <div class="logo-text">
                 <div class="alvo-text">ALVO -</div>
-                <div class="uma-text">UMA</div>
-                <div class="igreja-text">IGREJA</div>
-                <div class="que-text">QUE</div>
-                <div class="pensa-text">PENSA</div>
+                <div class="uma-text">UMA IGREJA QUE PENSA</div>
             </div>
         </div>
     </div>
