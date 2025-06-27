@@ -47,11 +47,15 @@
         .supabase-info { background: #0f1419; border: 1px solid #00d4aa; color: #00d4aa; padding: 15px; border-radius: 8px; margin-bottom: 20px; text-align: center; font-size: 0.9em; }
         .config-warning { background: #cc0000; color: white; padding: 10px; text-align: center; font-weight: bold; margin-bottom: 20px; border-radius: 8px; }
         @media (max-width: 768px) {
-            .container { margin: 10px; }
+            body { padding: 10px; }
+            .container { margin: 0; border-radius: 10px; }
             .header { padding: 20px; }
             .header h1 { font-size: 1.8em; }
             .form-container { padding: 20px; }
             .logo { width: 100px; height: 100px; font-size: 20px; }
+            .section-title { font-size: 1.1em; }
+            .color-list { justify-content: center; }
+            .color-item { font-size: 0.8em; }
         }
     </style>
 </head>
@@ -65,10 +69,6 @@
         </div>
 
         <div class="form-container">
-            <div class="counter">
-                📊 <span class="counter-number" id="inscricoes-count">0</span> pessoas já se inscreveram
-            </div>
-
             <div class="supabase-info">
                 🚀 <strong>Sistema Ultra-Moderno:</strong> Powered by Supabase - Banco de dados real, API robusta, capacidade ilimitada!
             </div>
@@ -108,6 +108,9 @@
                 <div class="form-group">
                     <label for="nome">Nome Completo <span class="required">*</span></label>
                     <input type="text" id="nome" name="nome" required placeholder="DIGITE SEU NOME COMPLETO">
+                    <div style="font-size: 0.9em; color: #ccc; margin-top: 5px;">
+                        ⚠️ Digite o nome exatamente como está no documento (RG/CPF)
+                    </div>
                 </div>
 
                 <div class="form-group">
@@ -248,15 +251,16 @@
                         <option value="AMARELA">💛 Rede Amarela</option>
                         <option value="VERMELHA">❤️ Rede Vermelha</option>
                         <option value="VERDE">💚 Rede Verde</option>
+                        <option value="NÃO-POSSUO">🆕 Não possuo rede ainda</option>
                     </select>
                 </div>
 
                 <div class="form-group">
-                    <label for="vai-servir-receber">Vai Servir ou Receber? <span class="required">*</span></label>
+                    <label for="vai-servir-receber">Trabalho ou Encontrista? <span class="required">*</span></label>
                     <select id="vai-servir-receber" name="vai-servir-receber" required>
                         <option value="">Selecione uma opção</option>
-                        <option value="SERVIR">🙏 Servir</option>
-                        <option value="RECEBER">🎯 Receber</option>
+                        <option value="TRABALHO">💼 Trabalho</option>
+                        <option value="ENCONTRISTA">🎯 Encontrista</option>
                     </select>
                 </div>
 
@@ -285,7 +289,7 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="forma-pagamento">Como prefere pagar a entrada? <span class="required">*</span></label>
+                    <label for="forma-pagamento">Como prefere pagar o retiro? <span class="required">*</span></label>
                     <select id="forma-pagamento" name="forma-pagamento" required>
                         <option value="">Selecione a forma de pagamento</option>
                         <option value="PIX">🏦 Pix</option>
@@ -362,10 +366,16 @@
             const valorInput = document.getElementById('valor-pago');
             const warning = document.getElementById('valor-warning');
             
-            if (pagamento === 'ENTRADA-PRÉ' && valorInput.value) {
+            if (valorInput.value) {
                 const valor = parseFloat(valorInput.value.replace(',', '.'));
-                if (valor < 200) {
+                
+                if (pagamento === 'ENTRADA-PRÉ' && valor < 200) {
                     warning.style.display = 'block';
+                    warning.innerHTML = '⚠️ <strong>Atenção:</strong> O valor mínimo da pré-inscrição é R$ 200,00';
+                } else if (pagamento === 'RETIRO-INTEGRAL' && valor !== 520) {
+                    warning.style.display = 'block';
+                    warning.innerHTML = '⚠️ <strong>Atenção:</strong> O valor do retiro integral deve ser exatamente R$ 520,00';
+                    valorInput.value = '520,00';
                 } else {
                     warning.style.display = 'none';
                 }
@@ -502,6 +512,7 @@
         document.getElementById('pagamento').addEventListener('change', function() {
             const valorGroup = document.getElementById('valor-group');
             const valorInput = document.getElementById('valor-pago');
+            const valorWarning = document.getElementById('valor-warning');
             
             if (this.value) {
                 valorGroup.style.display = 'block';
@@ -509,10 +520,13 @@
                 
                 if (this.value === 'ENTRADA-PRÉ') {
                     valorInput.placeholder = '200,00';
+                    valorInput.value = '';
                 } else if (this.value === 'PAGAR-DIFERENÇA') {
                     valorInput.placeholder = '320,00';
+                    valorInput.value = '';
                 } else if (this.value === 'RETIRO-INTEGRAL') {
                     valorInput.placeholder = '520,00';
+                    valorInput.value = '520,00';
                 }
             } else {
                 valorGroup.style.display = 'none';
@@ -606,9 +620,6 @@
                 
                 if (result.success) {
                     // Sucesso!
-                    inscricaoCount++;
-                    document.getElementById('inscricoes-count').textContent = inscricaoCount;
-                    
                     document.getElementById('success-message').style.display = 'block';
                     
                     const nextSteps = document.getElementById('next-steps');
@@ -653,7 +664,7 @@
         });
 
         // ===================================
-        // INICIALIZAÇÃO
+        // INICIALIZAÇÃO - SEM CONTADOR
         // ===================================
         
         // Verificar se o Supabase está configurado
@@ -670,10 +681,7 @@
             if (verificarConfiguracaoSupabase()) {
                 if (initializeSupabase()) {
                     console.log('🎯 Supabase inicializado com sucesso!');
-                    buscarContadorInscricoes();
-                    
-                    // Atualizar contador a cada 30 segundos
-                    setInterval(buscarContadorInscricoes, 30000);
+                    // Removido buscarContadorInscricoes() - não queremos mostrar contador
                 }
             }
         });
