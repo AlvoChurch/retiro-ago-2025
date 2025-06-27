@@ -134,7 +134,7 @@
 
         <div class="form-container">
             <div class="supabase-info">
-                🚀 <strong>Sistema de Inscrições:</strong> Se alguém quer vir após mim, negue-se a si mesmo, tome cada dia a sua cruz, e siga-me - Lucas 9:23!
+                 <strong> ✝️ </strong> Se alguém quer vir após mim, negue-se a si mesmo, tome cada dia a sua cruz, e siga-me - Lucas 9:23!
             </div>
 
             <div class="config-warning" id="config-warning">
