@@ -70,7 +70,7 @@
 
         <div class="form-container">
             <div class="supabase-info">
-                🚀 <strong>Sistema Ultra-Moderno:</strong> Powered by Supabase - Banco de dados real, API robusta, capacidade ilimitada!
+                🚀 <strong>Sistema de inscrição:</strong> Retiro 2025!
             </div>
 
             <div class="config-warning" id="config-warning">
