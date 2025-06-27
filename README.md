@@ -9,7 +9,19 @@
         body { font-family: 'Segoe UI', sans-serif; background: linear-gradient(135deg, #1a1a1a, #2d2d2d); min-height: 100vh; color: white; padding: 20px; }
         .container { max-width: 600px; margin: 0 auto; background: #000; border-radius: 15px; box-shadow: 0 20px 40px rgba(0,0,0,0.5); overflow: hidden; border: 1px solid #333; }
         .header { background: #000; padding: 30px; text-align: center; border-bottom: 2px solid #333; }
-        .logo { width: 120px; height: 120px; margin: 0 auto 20px; background: #222; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 24px; font-weight: bold; }
+        .logo-container { margin-bottom: 15px; display: flex; justify-content: center; }
+        .logo-svg { 
+            width: 120px; 
+            height: 120px; 
+            filter: drop-shadow(0 4px 8px rgba(0,0,0,0.3));
+        }
+        .church-name {
+            font-size: 0.9em;
+            color: #ccc;
+            margin-bottom: 15px;
+            letter-spacing: 1px;
+            font-weight: 500;
+        }
         .header h1 { font-size: 2.2em; margin-bottom: 10px; color: #fff; font-weight: 700; }
         .date { font-size: 1.3em; color: #ff6b35; font-weight: 600; margin-bottom: 5px; }
         .subtitle { font-size: 1.1em; color: #ccc; }
@@ -52,7 +64,8 @@
             .header { padding: 20px; }
             .header h1 { font-size: 1.8em; }
             .form-container { padding: 20px; }
-            .logo { width: 100px; height: 100px; font-size: 20px; }
+            .logo-svg { width: 80px; height: 80px; }
+            .church-name { font-size: 0.8em; }
             .section-title { font-size: 1.1em; }
             .color-list { justify-content: center; }
             .color-item { font-size: 0.8em; }
@@ -61,16 +74,27 @@
 </head>
 <body>
     <div class="container">
-       <div class="header">
-    <!-- Logo circular no centro -->
-    <div class="logo-container">
-        <div class="logo-circular">
-            <div class="logo-text">
-                <div class="alvo-text">ALVO -</div>
-                <div class="uma-text">UMA IGREJA QUE PENSA</div>
+        <div class="header">
+            <div class="logo-container">
+                <svg width="120" height="120" viewBox="0 0 100 100" class="logo-svg">
+                    <!-- Fundo preto -->
+                    <rect width="100" height="100" fill="#000" rx="8"/>
+                    
+                    <!-- Círculo principal (dois arcos) -->
+                    <path d="M 20 50 A 30 30 0 0 1 50 20 A 30 30 0 0 1 80 50" 
+                          fill="none" stroke="#fff" stroke-width="12" stroke-linecap="round"/>
+                    <path d="M 80 50 A 30 30 0 0 1 50 80 A 30 30 0 0 1 20 50" 
+                          fill="none" stroke="#fff" stroke-width="12" stroke-linecap="round"/>
+                    
+                    <!-- Círculo central -->
+                    <circle cx="50" cy="50" r="8" fill="#fff"/>
+                    
+                    <!-- Texto CHURCH -->
+                    <text x="50" y="92" font-family="Arial, sans-serif" font-size="8" font-weight="bold" 
+                          fill="#fff" text-anchor="middle" letter-spacing="2">CHURCH</text>
+                </svg>
             </div>
-        </div>
-    </div>
+            <div class="church-name">IGREJA ALVO</div>
             <div class="date" id="date-display">SELECIONE SEU GÊNERO</div>
             <h1>O RETIRO</h1>
             <div class="subtitle">VISÃO • MISSÃO • PRESSÃO</div>
@@ -78,7 +102,7 @@
 
         <div class="form-container">
             <div class="supabase-info">
-                🚀 <strong>Sistema de inscrição:</strong> Retiro 2025!
+                🚀 <strong>Sistema Ultra-Moderno:</strong> Powered by Supabase - Banco de dados real, API robusta, capacidade ilimitada!
             </div>
 
             <div class="config-warning" id="config-warning">
