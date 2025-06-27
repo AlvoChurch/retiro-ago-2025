@@ -62,7 +62,7 @@
 <body>
     <div class="container">
         <div class="header">
-            <div class="logo">🎯 ALVO</div>
+            <div class="logo">ALVO - UMA IGREJA QUE PENSA</div>
             <div class="date" id="date-display">SELECIONE SEU GÊNERO</div>
             <h1>O RETIRO</h1>
             <div class="subtitle">VISÃO • MISSÃO • PRESSÃO</div>
