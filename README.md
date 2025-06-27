@@ -8,23 +8,56 @@
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { font-family: 'Segoe UI', sans-serif; background: linear-gradient(135deg, #1a1a1a, #2d2d2d); min-height: 100vh; color: white; padding: 20px; }
         .container { max-width: 600px; margin: 0 auto; background: #000; border-radius: 15px; box-shadow: 0 20px 40px rgba(0,0,0,0.5); overflow: hidden; border: 1px solid #333; }
-        .header { background: #000; padding: 30px; text-align: center; border-bottom: 2px solid #333; }
-        .logo-container { margin-bottom: 15px; display: flex; justify-content: center; }
-        .logo-svg { 
-            width: 120px; 
-            height: 120px; 
-            filter: drop-shadow(0 4px 8px rgba(0,0,0,0.3));
+        
+        /* HEADER REDESENHADO */
+        .header { 
+            background: #000; 
+            padding: 40px 30px; 
+            text-align: center; 
+            border-bottom: 2px solid #333;
         }
+        
+        /* Texto da Igreja */
         .church-name {
-            font-size: 0.9em;
-            color: #ccc;
+            font-size: 1.4em;
+            color: #fff;
+            margin-bottom: 25px;
+            letter-spacing: 2px;
+            font-weight: 700;
+            text-transform: uppercase;
+            line-height: 1.2;
+        }
+        
+        /* Seletor de gênero */
+        .genero-selector {
+            font-size: 1.1em; 
+            color: #ff6b35; 
+            font-weight: 600; 
             margin-bottom: 15px;
             letter-spacing: 1px;
-            font-weight: 500;
+            text-transform: uppercase;
         }
-        .header h1 { font-size: 2.2em; margin-bottom: 10px; color: #fff; font-weight: 700; }
-        .date { font-size: 1.3em; color: #ff6b35; font-weight: 600; margin-bottom: 5px; }
-        .subtitle { font-size: 1.1em; color: #ccc; }
+        
+        /* Título principal */
+        .titulo-retiro { 
+            font-size: 3em; 
+            margin-bottom: 15px; 
+            color: #fff; 
+            font-weight: 900;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+        
+        /* Subtítulo */
+        .subtitle-retiro { 
+            font-size: 1.2em; 
+            color: #ccc;
+            letter-spacing: 2px;
+            font-weight: 500;
+            text-transform: uppercase;
+        }
+
         .form-container { padding: 40px; background: #111; }
         .counter { text-align: center; font-size: 1.4em; margin-bottom: 30px; padding: 15px; background: #222; border-radius: 10px; border: 1px solid #333; }
         .counter-number { color: #ff6b35; font-weight: bold; font-size: 1.5em; }
@@ -58,14 +91,25 @@
         .color-dot.verde { background: #22c55e; }
         .supabase-info { background: #0f1419; border: 1px solid #00d4aa; color: #00d4aa; padding: 15px; border-radius: 8px; margin-bottom: 20px; text-align: center; font-size: 0.9em; }
         .config-warning { background: #cc0000; color: white; padding: 10px; text-align: center; font-weight: bold; margin-bottom: 20px; border-radius: 8px; }
+        
+        /* RESPONSIVO */
         @media (max-width: 768px) {
             body { padding: 10px; }
             .container { margin: 0; border-radius: 10px; }
             .header { padding: 20px; }
-            .header h1 { font-size: 1.8em; }
+            .church-name { font-size: 1.1em; }
+            .titulo-retiro { 
+                font-size: 2.2em;
+                letter-spacing: 2px;
+            }
+            .subtitle-retiro { 
+                font-size: 1em;
+                letter-spacing: 1px;
+            }
+            .genero-selector {
+                font-size: 1em;
+            }
             .form-container { padding: 20px; }
-            .logo-svg { width: 80px; height: 80px; }
-            .church-name { font-size: 0.8em; }
             .section-title { font-size: 1.1em; }
             .color-list { justify-content: center; }
             .color-item { font-size: 0.8em; }
@@ -75,29 +119,17 @@
 <body>
     <div class="container">
         <div class="header">
-            <div class="logo-container">
-                <svg width="120" height="120" viewBox="0 0 100 100" class="logo-svg">
-                    <!-- Fundo preto -->
-                    <rect width="100" height="100" fill="#000" rx="8"/>
-                    
-                    <!-- Círculo principal (dois arcos) -->
-                    <path d="M 20 50 A 30 30 0 0 1 50 20 A 30 30 0 0 1 80 50" 
-                          fill="none" stroke="#fff" stroke-width="12" stroke-linecap="round"/>
-                    <path d="M 80 50 A 30 30 0 0 1 50 80 A 30 30 0 0 1 20 50" 
-                          fill="none" stroke="#fff" stroke-width="12" stroke-linecap="round"/>
-                    
-                    <!-- Círculo central -->
-                    <circle cx="50" cy="50" r="8" fill="#fff"/>
-                    
-                    <!-- Texto CHURCH -->
-                    <text x="50" y="92" font-family="Arial, sans-serif" font-size="8" font-weight="bold" 
-                          fill="#fff" text-anchor="middle" letter-spacing="2">CHURCH</text>
-                </svg>
-            </div>
-            <div class="church-name">IGREJA ALVO</div>
-            <div class="date" id="date-display">SELECIONE SEU GÊNERO</div>
-            <h1>O RETIRO</h1>
-            <div class="subtitle">VISÃO • MISSÃO • PRESSÃO</div>
+            <!-- Texto da Igreja centralizado -->
+            <div class="church-name">ALVO - UMA IGREJA QUE PENSA</div>
+            
+            <!-- Texto "SELECIONE SEU GÊNERO" em laranja -->
+            <div class="genero-selector" id="date-display">SELECIONE SEU GÊNERO</div>
+            
+            <!-- Título principal -->
+            <h1 class="titulo-retiro">O RETIRO</h1>
+            
+            <!-- Subtítulo -->
+            <div class="subtitle-retiro">VISÃO • MISSÃO • PRESSÃO</div>
         </div>
 
         <div class="form-container">
@@ -763,6 +795,7 @@
                 locomocao: 'NÃO',
                 locomocaoQual: null,
                 corRede: 'AZUL',
+                vaiServirReceber: 'TRABALHO',
                 statusPagamento: 'ENTRADA-PRÉ',
                 valorPago: '200,00',
                 formaPagamento: 'PIX'
