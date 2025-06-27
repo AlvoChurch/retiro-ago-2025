@@ -251,6 +251,15 @@
                     </select>
                 </div>
 
+                <div class="form-group">
+                    <label for="vai-servir-receber">Vai Servir ou Receber? <span class="required">*</span></label>
+                    <select id="vai-servir-receber" name="vai-servir-receber" required>
+                        <option value="">Selecione uma opção</option>
+                        <option value="SERVIR">🙏 Servir</option>
+                        <option value="RECEBER">🎯 Receber</option>
+                    </select>
+                </div>
+
                 <!-- INFORMAÇÕES DE PAGAMENTO -->
                 <div class="section-title">💰 Informações de Pagamento</div>
 
@@ -258,8 +267,9 @@
                     <label for="pagamento">Status do Pagamento da Entrada <span class="required">*</span></label>
                     <select id="pagamento" name="pagamento" required>
                         <option value="">Selecione o status do pagamento</option>
-                        <option value="ENTRADA-PRÉ">💰 Entrada Pré Inscrição (R$ 200,00 +)</option>
-                        <option value="PAGAR DIFERENÇA">📅 Pagar diferença</option>
+                        <option value="ENTRADA-PRÉ">💰 Entrada Pré Inscrição (R$ 200+)</option>
+                        <option value="RETIRO-INTEGRAL">🎯 Retiro Integral</option>
+                        <option value="PAGAR-DIFERENÇA">📅 Pagar Diferença</option>
                     </select>
                 </div>
 
@@ -278,10 +288,10 @@
                     <label for="forma-pagamento">Como prefere pagar a entrada? <span class="required">*</span></label>
                     <select id="forma-pagamento" name="forma-pagamento" required>
                         <option value="">Selecione a forma de pagamento</option>
-                        <option value="PIX">🏦 PIX</option>
+                        <option value="PIX">🏦 Pix</option>
                         <option value="DINHEIRO">💵 Dinheiro</option>
-                        <option value="CARTÃO">💳 Cartão</option>
-                        <option value="TRANSFERÊNCIA">🏧 Transferência</option>
+                        <option value="CT-DÉBITO">💳 Cartão Débito</option>
+                        <option value="CT-CRÉDITO">💳 Cartão Crédito</option>
                     </select>
                 </div>
 
@@ -433,6 +443,7 @@
                         limitacao_locomocao: dados.locomocao,
                         locomocao_qual: dados.locomocaoQual || null,
                         cor_rede: dados.corRede,
+                        vai_servir_receber: dados.vaiServirReceber,
                         status_pagamento: dados.statusPagamento,
                         valor_pago: dados.valorPago || null,
                         forma_pagamento: dados.formaPagamento,
@@ -498,8 +509,10 @@
                 
                 if (this.value === 'ENTRADA-PRÉ') {
                     valorInput.placeholder = '200,00';
-                } else if (this.value === 'PAGAR DIFERENÇA') {
+                } else if (this.value === 'PAGAR-DIFERENÇA') {
                     valorInput.placeholder = '320,00';
+                } else if (this.value === 'RETIRO-INTEGRAL') {
+                    valorInput.placeholder = '520,00';
                 }
             } else {
                 valorGroup.style.display = 'none';
@@ -522,6 +535,13 @@
         document.querySelectorAll('input[type="text"], textarea').forEach(input => {
             input.addEventListener('input', function() {
                 this.value = this.value.toUpperCase();
+            });
+        });
+
+        // Converter campos select para MAIÚSCULA também
+        document.querySelectorAll('select').forEach(select => {
+            select.addEventListener('change', function() {
+                // O valor interno já é maiúsculo nas options, não precisa converter
             });
         });
 
@@ -575,6 +595,7 @@
                 locomocao: dados.locomocao,
                 locomocaoQual: dados['locomocao-qual'] || '',
                 corRede: dados['cor-rede'],
+                vaiServirReceber: dados['vai-servir-receber'],
                 statusPagamento: dados.pagamento,
                 valorPago: dados['valor-pago'] || '',
                 formaPagamento: dados['forma-pagamento']
