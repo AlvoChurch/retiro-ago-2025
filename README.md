@@ -61,8 +61,19 @@
 </head>
 <body>
     <div class="container">
-        <div class="header">
-            <div class="logo">ALVO - UMA IGREJA QUE PENSA</div>
+       <div class="header">
+    <!-- Logo circular no centro -->
+    <div class="logo-container">
+        <div class="logo-circular">
+            <div class="logo-text">
+                <div class="alvo-text">ALVO -</div>
+                <div class="uma-text">UMA</div>
+                <div class="igreja-text">IGREJA</div>
+                <div class="que-text">QUE</div>
+                <div class="pensa-text">PENSA</div>
+            </div>
+        </div>
+    </div>
             <div class="date" id="date-display">SELECIONE SEU GÊNERO</div>
             <h1>O RETIRO</h1>
             <div class="subtitle">VISÃO • MISSÃO • PRESSÃO</div>
