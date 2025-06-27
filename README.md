@@ -690,7 +690,7 @@
                     const valorPago = dados['valor-pago'] ? parseFloat(dados['valor-pago'].replace(',', '.')) : 0;
                     const saldoRestante = 520 - valorPago;
                     
-                    nextSteps.innerHTML = `💰 Você pagará R$ ${dados['valor-pago']} como entrada. Saldo restante: R$ ${saldoRestante.toFixed(2).replace('.', ',')}. Entraremos em contato via WhatsApp!`;
+                    nextSteps.innerHTML = `💰 Você pagará R$ ${dados['valor-pago']} como entrada. Saldo restante: R$ ${saldoRestante.toFixed(2).replace('.', ',')}. O pagamento deverá ser pago presencialmente no Barracão!`;
                     
                     // Reset do formulário
                     this.reset();
