@@ -150,7 +150,7 @@
         <div class="header">
             <!-- LOGO DA IGREJA - TROQUE APENAS O ENDEREÇO AQUI! -->
             <div class="church-logo">
-                <img src="https://i.imgur.com/d6JIzvh.png" alt="Logo O Retiro" id="church-logo-img">
+                <img src="https://i.imgur.com/T5QABfl.jpeg" alt="Logo O Retiro" id="church-logo-img">
             </div>
             
             <!-- Texto da Igreja centralizado -->
