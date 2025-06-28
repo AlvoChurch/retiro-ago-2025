@@ -157,7 +157,7 @@
             <div class="church-name">ALVO - UMA IGREJA QUE PENSA</div>
             
             <!-- Texto "PROGRAMAÇÃO - O RETIRO" em laranja -->
-            <div class="genero-selector" id="date-display">SELECIONE SEU GÊNERO</div>
+            <div class="genero-selector" id="date-display">PROGRAMAÇÃO - O RETIRO</div>
             
             <!-- Subtítulo -->
             <div class="subtitle-retiro">VISÃO • MISSÃO • PRESSÃO</div>
@@ -218,7 +218,7 @@
                 <div class="form-group">
                     <label for="genero">Gênero <span class="required">*</span></label>
                     <select id="genero" name="genero" required>
-                        <option value="">Selecione seu gênero</option>
+                        <option value="">PROGRAMAÇÃO - O RETIRO</option>
                         <option value="HOMEM">👨 Homem</option>
                         <option value="MULHER">👩 Mulher</option>
                     </select>
