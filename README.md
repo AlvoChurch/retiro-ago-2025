@@ -156,11 +156,8 @@
             <!-- Texto da Igreja centralizado -->
             <div class="church-name">ALVO - UMA IGREJA QUE PENSA</div>
             
-            <!-- Texto "SELECIONE SEU GÊNERO" em laranja -->
+            <!-- Texto "PROGRAMAÇÃO - O RETIRO" em laranja -->
             <div class="genero-selector" id="date-display">SELECIONE SEU GÊNERO</div>
-            
-            <!-- Título principal -->
-            <h1 class="titulo-retiro">O RETIRO</h1>
             
             <!-- Subtítulo -->
             <div class="subtitle-retiro">VISÃO • MISSÃO • PRESSÃO</div>
