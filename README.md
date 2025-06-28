@@ -93,6 +93,9 @@
         .config-warning { background: #cc0000; color: white; padding: 10px; text-align: center; font-weight: bold; margin-bottom: 20px; border-radius: 8px; }
         
         /* RESPONSIVO */
+        /* Ajustar container - removido padding-bottom do rodapé */
+        body { font-family: 'Segoe UI', sans-serif; background: linear-gradient(135deg, #1a1a1a, #2d2d2d); min-height: 100vh; color: white; padding: 20px; }
+
         @media (max-width: 768px) {
             body { padding: 10px; }
             .container { margin: 0; border-radius: 10px; }
@@ -134,7 +137,7 @@
 
         <div class="form-container">
             <div class="supabase-info">
-                 <strong> ✝️ </strong> Se alguém quer vir após mim, negue-se a si mesmo, tome cada dia a sua cruz, e siga-me - Lucas 9:23!
+                🚀 <strong>Sistema Ultra-Moderno:</strong> Powered by Supabase - Banco de dados real, API robusta, capacidade ilimitada!
             </div>
 
             <div class="config-warning" id="config-warning">
@@ -150,6 +153,13 @@
                 • <strong>Valor Total:</strong> R$ 520,00<br>
                 • <strong>Entrada para Pré-Inscrição:</strong> R$ 200,00<br>
                 • <strong>Saldo Restante:</strong> R$ 320,00 (até o dia do retiro)
+            </div>
+
+            <div class="info-box">
+                <strong>🎽 PROMOÇÃO ESPECIAL - CAMISA DO RETIRO:</strong><br>
+                • <strong>As 150 primeiras pessoas que quitarem o valor total no barracão ganham a camisa oficial do retiro!</strong><br>
+                • <strong>Critério:</strong> Ordem de quitação no balcão de pagamento presencial no barracão<br>
+                • <strong>Como garantir:</strong> Compareça ao balcão e quite o valor total de R$ 520,00
             </div>
 
             <div class="success-message" id="success-message">
@@ -335,9 +345,9 @@
                     <label for="pagamento">Status do Pagamento da Entrada <span class="required">*</span></label>
                     <select id="pagamento" name="pagamento" required>
                         <option value="">Selecione o status do pagamento</option>
-                        <option value="ENTRADA-PRÉ"> Entrada Pré Inscrição (R$ 200+)</option>
-                        <option value="RETIRO-INTEGRAL"> Retiro Integral</option>
-                        <option value="PAGAR-DIFERENÇA"> Pagar Diferença</option>
+                        <option value="ENTRADA-PRÉ">💰 Entrada Pré Inscrição (R$ 200+)</option>
+                        <option value="RETIRO-INTEGRAL">🎯 Retiro Integral</option>
+                        <option value="PAGAR-DIFERENÇA">📅 Pagar Diferença</option>
                     </select>
                 </div>
 
@@ -690,7 +700,19 @@
                     const valorPago = dados['valor-pago'] ? parseFloat(dados['valor-pago'].replace(',', '.')) : 0;
                     const saldoRestante = 520 - valorPago;
                     
-                    nextSteps.innerHTML = `💰 Você pagará R$ ${dados['valor-pago']} como entrada. Saldo restante: R$ ${saldoRestante.toFixed(2).replace('.', ',')}. O pagamento deverá ser pago presencialmente no Barracão!`;
+                    let mensagemCamisa = '';
+                    if (dados.pagamento === 'RETIRO-INTEGRAL') {
+                        mensagemCamisa = '<br><br>🎽 <strong>ATENÇÃO CAMISA:</strong> Você escolheu pagar o valor integral! Se confirmar o pagamento no barracão, concorrerá às 150 primeiras camisas do retiro!';
+                    } else {
+                        mensagemCamisa = '<br><br>🎽 <strong>LEMBRE-SE:</strong> As 150 primeiras pessoas que quitarem o valor total no barracão ganharão a camisa do retiro!';
+                    }
+                    
+                    nextSteps.innerHTML = `
+                        💰 Você informou que pagará R$ ${dados['valor-pago']} como entrada. 
+                        Saldo restante: R$ ${saldoRestante.toFixed(2).replace('.', ',')}. 
+                        Compareça ao barracão para confirmar o pagamento!
+                        ${mensagemCamisa}
+                    `;
                     
                     // Reset do formulário
                     this.reset();
@@ -745,7 +767,6 @@
             if (verificarConfiguracaoSupabase()) {
                 if (initializeSupabase()) {
                     console.log('🎯 Supabase inicializado com sucesso!');
-                    // Removido buscarContadorInscricoes() - não queremos mostrar contador
                 }
             }
         });
@@ -806,7 +827,6 @@
             if (result.success) {
                 console.log('✅ Teste de inserção OK!');
                 alert('✅ Teste de inserção funcionando!');
-                buscarContadorInscricoes();
             } else {
                 console.error('❌ Erro no teste:', result.error);
                 alert('❌ Erro no teste: ' + result.error);
@@ -814,8 +834,10 @@
         };
 
         console.log('🎯 Sistema Supabase carregado!');
+        console.log('🎽 Informações sobre camisa incluídas!');
         console.log('💡 Para testar a conexão, execute: testarSupabase()');
         console.log('💡 Para testar inserção, execute: testeInscricao()');
+        console.log('📋 Contador de camisas será mostrado no sistema de balcão!');
     </script>
 </body>
 </html>
