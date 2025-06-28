@@ -9,12 +9,29 @@
         body { font-family: 'Segoe UI', sans-serif; background: linear-gradient(135deg, #1a1a1a, #2d2d2d); min-height: 100vh; color: white; padding: 20px; }
         .container { max-width: 600px; margin: 0 auto; background: #000; border-radius: 15px; box-shadow: 0 20px 40px rgba(0,0,0,0.5); overflow: hidden; border: 1px solid #333; }
         
-        /* HEADER REDESENHADO */
+        /* HEADER REDESENHADO COM LOGO */
         .header { 
             background: #000; 
-            padding: 40px 30px; 
+            padding: 30px 30px 40px 30px; 
             text-align: center; 
             border-bottom: 2px solid #333;
+        }
+        
+        /* LOGO DA IGREJA */
+        .church-logo {
+            margin-bottom: 20px;
+        }
+        
+        .church-logo img {
+            max-width: 120px;
+            height: auto;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(255, 107, 53, 0.3);
+            transition: transform 0.3s ease;
+        }
+        
+        .church-logo img:hover {
+            transform: scale(1.05);
         }
         
         /* Texto da Igreja */
@@ -93,13 +110,16 @@
         .config-warning { background: #cc0000; color: white; padding: 10px; text-align: center; font-weight: bold; margin-bottom: 20px; border-radius: 8px; }
         
         /* RESPONSIVO */
-        /* Ajustar container - removido padding-bottom do rodapé */
-        body { font-family: 'Segoe UI', sans-serif; background: linear-gradient(135deg, #1a1a1a, #2d2d2d); min-height: 100vh; color: white; padding: 20px; }
-
         @media (max-width: 768px) {
             body { padding: 10px; }
             .container { margin: 0; border-radius: 10px; }
             .header { padding: 20px; }
+            
+            /* Logo responsivo */
+            .church-logo img {
+                max-width: 100px;
+            }
+            
             .church-name { font-size: 1.1em; }
             .titulo-retiro { 
                 font-size: 2.2em;
@@ -117,11 +137,22 @@
             .color-list { justify-content: center; }
             .color-item { font-size: 0.8em; }
         }
+        
+        /* Caso a imagem não carregue */
+        .church-logo img {
+            background: #333;
+            border: 2px dashed #666;
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="header">
+            <!-- LOGO DA IGREJA - TROQUE APENAS O ENDEREÇO AQUI! -->
+            <div class="church-logo">
+                <img src="https://raw.githubusercontent.com/SEU-USUARIO/SEU-REPOSITORIO/main/logo-alvo.png" alt="Logo ALVO" id="church-logo-img">
+            </div>
+            
             <!-- Texto da Igreja centralizado -->
             <div class="church-name">ALVO - UMA IGREJA QUE PENSA</div>
             
@@ -412,6 +443,25 @@
         let isSubmitting = false;
 
         // ===================================
+        // CONFIGURAÇÃO DA LOGO
+        // ===================================
+        
+        // Tratamento de erro para logo
+        document.addEventListener('DOMContentLoaded', function() {
+            const logoImg = document.getElementById('church-logo-img');
+            
+            logoImg.addEventListener('error', function() {
+                console.warn('⚠️ Logo não encontrada. Verifique o endereço da imagem.');
+                // Oculta a logo se não carregar
+                this.style.display = 'none';
+            });
+            
+            logoImg.addEventListener('load', function() {
+                console.log('✅ Logo carregada com sucesso!');
+            });
+        });
+
+        // ===================================
         // FUNÇÕES DE FORMATAÇÃO
         // ===================================
         
@@ -626,13 +676,6 @@
             });
         });
 
-        // Converter campos select para MAIÚSCULA também
-        document.querySelectorAll('select').forEach(select => {
-            select.addEventListener('change', function() {
-                // O valor interno já é maiúsculo nas options, não precisa converter
-            });
-        });
-
         // ===================================
         // SUBMIT DO FORMULÁRIO
         // ===================================
@@ -750,7 +793,7 @@
         });
 
         // ===================================
-        // INICIALIZAÇÃO - SEM CONTADOR
+        // INICIALIZAÇÃO
         // ===================================
         
         // Verificar se o Supabase está configurado
@@ -835,9 +878,9 @@
 
         console.log('🎯 Sistema Supabase carregado!');
         console.log('🎽 Informações sobre camisa incluídas!');
+        console.log('🖼️ Logo configurada - troque o endereço na linha 78!');
         console.log('💡 Para testar a conexão, execute: testarSupabase()');
         console.log('💡 Para testar inserção, execute: testeInscricao()');
-        console.log('📋 Contador de camisas será mostrado no sistema de balcão!');
     </script>
 </body>
 </html>
