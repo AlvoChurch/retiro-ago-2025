@@ -137,7 +137,7 @@
 
         <div class="form-container">
             <div class="supabase-info">
-                🚀 <strong>Sistema Ultra-Moderno:</strong> Powered by Supabase - Banco de dados real, API robusta, capacidade ilimitada!
+                ➕ <strong>Se alguém quer vir após mim, negue-se a si mesmo, e tome cada dia a sua cruz, e siga-me.</strong> Lucas 9:23
             </div>
 
             <div class="config-warning" id="config-warning">
@@ -342,7 +342,7 @@
                 <div class="section-title">💰 Informações de Pagamento</div>
 
                 <div class="form-group">
-                    <label for="pagamento">Status do Pagamento da Entrada <span class="required">*</span></label>
+                    <label for="pagamento">Status do Pagamento do retiro <span class="required">*</span></label>
                     <select id="pagamento" name="pagamento" required>
                         <option value="">Selecione o status do pagamento</option>
                         <option value="ENTRADA-PRÉ">💰 Entrada Pré Inscrição (R$ 200+)</option>
