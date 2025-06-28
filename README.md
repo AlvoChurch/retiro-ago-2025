@@ -218,7 +218,7 @@
                 <div class="form-group">
                     <label for="genero">Gênero <span class="required">*</span></label>
                     <select id="genero" name="genero" required>
-                        <option value="">PROGRAMAÇÃO - O RETIRO</option>
+                        <option value="">SELECIONE SEU GÊNERO</option>
                         <option value="HOMEM">👨 Homem</option>
                         <option value="MULHER">👩 Mulher</option>
                     </select>
