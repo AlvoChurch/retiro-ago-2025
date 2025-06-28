@@ -150,7 +150,7 @@
         <div class="header">
             <!-- LOGO DA IGREJA - TROQUE APENAS O ENDEREÇO AQUI! -->
             <div class="church-logo">
-                <img src="https://raw.githubusercontent.com/SEU-USUARIO/SEU-REPOSITORIO/main/logo-alvo.png" alt="Logo ALVO" id="church-logo-img">
+                <img src="[https://raw.githubusercontent.com/SEU-USUARIO/SEU-REPOSITORIO/main/logo-alvo.png](https://github.com/AlvoChurch/retiro-ago-2025/issues/2#issue-3185310719)" alt="Logo ALVO" id="church-logo-img">
             </div>
             
             <!-- Texto da Igreja centralizado -->
