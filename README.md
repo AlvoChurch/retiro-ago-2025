@@ -9,7 +9,6 @@
         body { font-family: 'Segoe UI', sans-serif; background: linear-gradient(135deg, #1a1a1a, #2d2d2d); min-height: 100vh; color: white; padding: 20px; }
         .container { max-width: 600px; margin: 0 auto; background: #000; border-radius: 15px; box-shadow: 0 20px 40px rgba(0,0,0,0.5); overflow: hidden; border: 1px solid #333; }
         
-        /* HEADER REDESENHADO COM LOGO */
         .header { 
             background: #000; 
             padding: 30px 30px 40px 30px; 
@@ -17,7 +16,6 @@
             border-bottom: 2px solid #333;
         }
         
-        /* LOGO DA IGREJA */
         .church-logo {
             margin-bottom: 20px;
         }
@@ -34,7 +32,6 @@
             transform: scale(1.05);
         }
         
-        /* Texto da Igreja */
         .church-name {
             font-size: 1.4em;
             color: #fff;
@@ -45,7 +42,6 @@
             line-height: 1.2;
         }
         
-        /* Seletor de gênero */
         .genero-selector {
             font-size: 1.1em; 
             color: #ff6b35; 
@@ -55,7 +51,6 @@
             text-transform: uppercase;
         }
         
-        /* Título principal */
         .titulo-retiro { 
             font-size: 3em; 
             margin-bottom: 15px; 
@@ -66,7 +61,6 @@
             text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
         }
         
-        /* Subtítulo */
         .subtitle-retiro { 
             font-size: 1.2em; 
             color: #ccc;
@@ -76,15 +70,13 @@
         }
 
         .form-container { padding: 40px; background: #111; }
-        .counter { text-align: center; font-size: 1.4em; margin-bottom: 30px; padding: 15px; background: #222; border-radius: 10px; border: 1px solid #333; }
-        .counter-number { color: #ff6b35; font-weight: bold; font-size: 1.5em; }
         .section-title { color: #ff6b35; font-size: 1.3em; font-weight: bold; margin: 30px 0 20px 0; padding-bottom: 10px; border-bottom: 2px solid #333; }
         .form-group { margin-bottom: 25px; }
         .conditional-field { margin-top: 15px; padding-left: 20px; border-left: 3px solid #ff6b35; display: none; }
         label { display: block; margin-bottom: 8px; font-weight: 600; color: #fff; font-size: 1.1em; }
         .required { color: #ff6b35; }
         input, select, textarea { width: 100%; padding: 15px; border: 2px solid #333; border-radius: 8px; font-size: 16px; transition: all 0.3s ease; background: #222; color: #fff; text-transform: uppercase; }
-        input[type="number"], input[type="tel"] { text-transform: none; }
+        input[type="number"], input[type="tel"], input[type="email"] { text-transform: none; }
         input:focus, select:focus, textarea:focus { outline: none; border-color: #ff6b35; background: #333; box-shadow: 0 0 0 3px rgba(255, 107, 53, 0.1); }
         input::placeholder { color: #999; }
         textarea { resize: vertical; min-height: 80px; }
@@ -106,63 +98,37 @@
         .color-dot.amarela { background: #eab308; }
         .color-dot.vermelha { background: #ef4444; }
         .color-dot.verde { background: #22c55e; }
-        .supabase-info { background: #0f1419; border: 1px solid #00d4aa; color: #00d4aa; padding: 15px; border-radius: 8px; margin-bottom: 20px; text-align: center; font-size: 0.9em; }
-        .config-warning { background: #cc0000; color: white; padding: 10px; text-align: center; font-weight: bold; margin-bottom: 20px; border-radius: 8px; }
         
-        /* RESPONSIVO */
         @media (max-width: 768px) {
             body { padding: 10px; }
             .container { margin: 0; border-radius: 10px; }
             .header { padding: 20px; }
-            
-            /* Logo responsivo */
-            .church-logo img {
-                max-width: 100px;
-            }
-            
+            .church-logo img { max-width: 100px; }
             .church-name { font-size: 1.1em; }
-            .titulo-retiro { 
-                font-size: 2.2em;
-                letter-spacing: 2px;
-            }
-            .subtitle-retiro { 
-                font-size: 1em;
-                letter-spacing: 1px;
-            }
-            .genero-selector {
-                font-size: 1em;
-            }
+            .titulo-retiro { font-size: 2.2em; letter-spacing: 2px; }
+            .subtitle-retiro { font-size: 1em; letter-spacing: 1px; }
+            .genero-selector { font-size: 1em; }
             .form-container { padding: 20px; }
             .section-title { font-size: 1.1em; }
             .color-list { justify-content: center; }
             .color-item { font-size: 0.8em; }
-        }
-        
-        /* Caso a imagem não carregue */
-        .church-logo img {
-            background: #333;
-            border: 2px dashed #666;
         }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="header">
-            <!-- LOGO DA IGREJA - TROQUE APENAS O ENDEREÇO AQUI! -->
             <div class="church-logo">
                 <img src="https://i.imgur.com/T5QABfl.jpeg" alt="Logo O Retiro" id="church-logo-img">
             </div>
             
-            <!-- Texto da Igreja centralizado -->
             <div class="church-name">
                 ALVO - UMA IGREJA, UMA VISÃO,<br>
                 <strong>VEM E VÊ!</strong>
             </div>
             
-            <!-- Texto "PROGRAMAÇÃO - O RETIRO" em laranja -->
             <div class="genero-selector" id="date-display">PROGRAMAÇÃO - O RETIRO</div>
             
-            <!-- Subtítulo -->
             <div class="subtitle-retiro">VISÃO • MISSÃO • PRESSÃO</div>
         </div>
 
@@ -180,10 +146,6 @@
                 <strong>🎽 PROMOÇÃO ESPECIAL - CAMISA DO RETIRO:</strong><br>
                 • <strong>Os 150 primeiros pagamentos ganham a camisa oficial do RETIRO!</strong><br>
                 • <strong>Como garantir:</strong> Compareça ao balcão e pague o valor mínimo de R$ 150,00
-            </div>
-
-            <div class="config-warning" id="config-warning">
-                ⚠️ CONFIGURE AS CHAVES DO SUPABASE NO CÓDIGO ANTES DE USAR!
             </div>
 
             <div class="success-message" id="success-message">
@@ -454,53 +416,24 @@
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     
     <script>
-        // ===================================
         // CONFIGURAÇÕES SUPABASE
-        // ===================================
-        
-        // 🔧 CONFIGURAÇÕES DO SEU NOVO SUPABASE - ATUALIZADO!
-        const SUPABASE_CONFIG = {
-            url: 'https://yuikwufjkdzgdzvlotaq.supabase.co', // URL do novo projeto
-            anonKey: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inl1aWt3dWZqa2R6Z2R6dmxvdGFxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTA5ODcwMzcsImV4cCI6MjA2NjU2MzAzN30.UGW0AHHSsIv842Z92F6RjI930fgS-5FmPX0i7kumgYo' // Nova chave
+        const RETIRO_CONFIG = {
+            url: 'https://yuikwufjkdzgdzvlotaq.supabase.co',
+            anonKey: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inl1aWt3dWZqa2R6Z2R6dmxvdGFxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTA5ODcwMzcsImV4cCI6MjA2NjU2MzAzN30.UGW0AHHSsIv842Z92F6RjI930fgS-5FmPX0i7kumgYo'
         };
 
-        // Inicializar cliente Supabase
-        let supabase;
-        
-        function initializeSupabase() {
-            // Suas chaves estão configuradas corretamente
-            supabase = window.supabase.createClient(SUPABASE_CONFIG.url, SUPABASE_CONFIG.anonKey);
-            document.getElementById('config-warning').style.display = 'none';
+        let retiroSupabase;
+        let isSubmittingForm = false;
+
+        // INICIALIZAR SUPABASE
+        function inicializarSistema() {
+            retiroSupabase = window.supabase.createClient(RETIRO_CONFIG.url, RETIRO_CONFIG.anonKey);
+            console.log('🎯 Sistema inicializado com sucesso!');
             return true;
         }
 
-        let inscricaoCount = 0;
-        let isSubmitting = false;
-
-        // ===================================
-        // CONFIGURAÇÃO DA LOGO
-        // ===================================
-        
-        // Tratamento de erro para logo
-        document.addEventListener('DOMContentLoaded', function() {
-            const logoImg = document.getElementById('church-logo-img');
-            
-            logoImg.addEventListener('error', function() {
-                console.warn('⚠️ Logo não encontrada. Verifique o endereço da imagem.');
-                // Oculta a logo se não carregar
-                this.style.display = 'none';
-            });
-            
-            logoImg.addEventListener('load', function() {
-                console.log('✅ Logo carregada com sucesso!');
-            });
-        });
-
-        // ===================================
-        // FUNÇÕES DE FORMATAÇÃO
-        // ===================================
-        
-        function formatWhatsApp(input) {
+        // FORMATAÇÃO
+        function formatarWhatsApp(input) {
             let value = input.value.replace(/\D/g, '');
             if (value.length >= 11) {
                 value = value.replace(/(\d{2})(\d{5})(\d{4})/, '($1) $2-$3');
@@ -512,7 +445,7 @@
             input.value = value;
         }
 
-        function formatValor(input) {
+        function formatarValor(input) {
             let value = input.value.replace(/\D/g, '');
             if (value.length >= 3) {
                 value = value.replace(/(\d+)(\d{2})$/, '$1,$2');
@@ -528,13 +461,9 @@
             if (valorInput.value) {
                 const valor = parseFloat(valorInput.value.replace(',', '.'));
                 
-                if (pagamento === 'ENTRADA-PRÉ' && valor < 200) {
+                if (pagamento === 'ENTRADA-PRÉ' && valor < 150) {
                     warning.style.display = 'block';
-                    warning.innerHTML = '⚠️ <strong>Atenção:</strong> O valor mínimo da pré-inscrição é R$ 200,00';
-                } else if (pagamento === 'RETIRO-INTEGRAL' && valor !== 520) {
-                    warning.style.display = 'block';
-                    warning.innerHTML = '⚠️ <strong>Atenção:</strong> O valor do retiro integral deve ser exatamente R$ 520,00';
-                    valorInput.value = '520,00';
+                    warning.innerHTML = '⚠️ <strong>Atenção:</strong> O valor mínimo da pré-inscrição é R$ 150,00';
                 } else {
                     warning.style.display = 'none';
                 }
@@ -543,11 +472,25 @@
             }
         }
 
-        // ===================================
-        // CONFIGURAR CAMPOS CONDICIONAIS
-        // ===================================
-        
-        function setupConditionalField(selectId, detailsId) {
+        // ATUALIZAR DATA BASEADA NO SEXO
+        function atualizarDataRetiro() {
+            const sexo = document.getElementById('sexo').value;
+            const dateDisplay = document.getElementById('date-display');
+            
+            if (sexo === 'MASCULINO') {
+                dateDisplay.textContent = 'MASCULINO: 8, 9 E 10 DE AGOSTO';
+                dateDisplay.style.color = '#4ade80';
+            } else if (sexo === 'FEMININO') {
+                dateDisplay.textContent = 'FEMININO: 15, 16 E 17 DE AGOSTO';
+                dateDisplay.style.color = '#ff6b9d';
+            } else {
+                dateDisplay.textContent = 'SELECIONE SEU SEXO';
+                dateDisplay.style.color = '#ff6b35';
+            }
+        }
+
+        // CAMPOS CONDICIONAIS
+        function configurarCampoCondicional(selectId, detailsId) {
             const select = document.getElementById(selectId);
             const details = document.getElementById(detailsId);
             const textarea = details.querySelector('textarea');
@@ -564,64 +507,41 @@
             });
         }
 
-        // ===================================
-        // ATUALIZAR DATA BASEADA NO GÊNERO
-        // ===================================
-        
-        function atualizarDataRetiro() {
-            const genero = document.getElementById('genero').value;
-            const dateDisplay = document.getElementById('date-display');
-            
-            if (genero === 'HOMEM') {
-                dateDisplay.textContent = 'HOMENS: 8, 9 E 10 DE AGOSTO';
-                dateDisplay.style.color = '#4ade80';
-            } else if (genero === 'MULHER') {
-                dateDisplay.textContent = 'MULHERES: 15, 16 E 17 DE AGOSTO';
-                dateDisplay.style.color = '#ff6b9d';
-            } else {
-                dateDisplay.textContent = 'SELECIONE SEU GÊNERO';
-                dateDisplay.style.color = '#ff6b35';
-            }
-        }
-
-        // ===================================
-        // INTEGRAÇÃO COM SUPABASE API
-        // ===================================
-        
-        async function submitToSupabase(dados) {
+        // INTEGRAÇÃO COM SUPABASE
+        async function enviarParaSupabase(informacoes) {
             try {
-                console.log('📤 Enviando para Supabase:', dados);
+                console.log('📤 Enviando para Supabase:', informacoes);
 
-                const { data, error } = await supabase
+                const { data, error } = await retiroSupabase
                     .from('inscricoes')
                     .insert([{
-                        nome_completo: dados.nome,
-                        sexo: dados.sexo,
-                        idade: parseInt(dados.idade),
-                        whatsapp: dados.whatsapp,
-                        email: dados.email,
-                        endereco: dados.endereco,
-                        numero: dados.numero,
-                        bairro: dados.bairro,
-                        cidade: dados.cidade,
-                        comorbidade: dados.comorbidade,
-                        comorbidade_qual: dados.comorbidadeQual || null,
-                        gravida: dados.gravida,
-                        gravidez_observacao: dados.gravidaObservacao || null,
-                        medicacao: dados.medicacao,
-                        medicacao_qual: dados.medicacaoQual || null,
-                        restricoes_alimentares: dados.restricoes,
-                        restricoes_quais: dados.restricoesQuais || null,
-                        alergias: dados.alergias,
-                        alergias_quais: dados.alergiasQuais || null,
-                        limitacao_locomocao: dados.locomocao,
-                        locomocao_qual: dados.locomocaoQual || null,
-                        cor_rede: dados.corRede,
-                        vai_servir_receber: dados.vaiServirReceber,
-                        status_pagamento: dados.statusPagamento,
-                        valor_pago: dados.valorPago || null,
-                        forma_pagamento: dados.formaPagamento,
-                        autorizacao_imagem: dados.autorizacaoImagem,
+                        nome_completo: informacoes.nome,
+                        sexo: informacoes.sexo,
+                        idade: parseInt(informacoes.idade),
+                        whatsapp: informacoes.whatsapp,
+                        email: informacoes.email,
+                        endereco: informacoes.endereco,
+                        numero: informacoes.numero,
+                        bairro: informacoes.bairro,
+                        cidade: informacoes.cidade,
+                        comorbidade: informacoes.comorbidade,
+                        comorbidade_qual: informacoes.comorbidadeQual || null,
+                        gravida: informacoes.gravida,
+                        gravidez_observacao: informacoes.gravidaObservacao || null,
+                        medicacao: informacoes.medicacao,
+                        medicacao_qual: informacoes.medicacaoQual || null,
+                        restricoes_alimentares: informacoes.restricoes,
+                        restricoes_quais: informacoes.restricoesQuais || null,
+                        alergias: informacoes.alergias,
+                        alergias_quais: informacoes.alergiasQuais || null,
+                        limitacao_locomocao: informacoes.locomocao,
+                        locomocao_qual: informacoes.locomocaoQual || null,
+                        cor_rede: informacoes.corRede,
+                        vai_servir_receber: informacoes.vaiServirReceber,
+                        status_pagamento: informacoes.statusPagamento,
+                        valor_pago: informacoes.valorPago || null,
+                        forma_pagamento: informacoes.formaPagamento,
+                        autorizacao_imagem: informacoes.autorizacaoImagem,
                         data_inscricao: new Date().toISOString(),
                         data_confirmacao_pagamento: null,
                         status: 'ATIVO'
@@ -639,113 +559,8 @@
             }
         }
 
-        // ===================================
-        // BUSCAR CONTADOR DE INSCRIÇÕES
-        // ===================================
-        
-        async function buscarContadorInscricoes() {
-            try {
-                if (!supabase) return;
-
-                const { count, error } = await supabase
-                    .from('inscricoes')
-                    .select('*', { count: 'exact', head: true });
-
-                if (error) throw error;
-
-                inscricaoCount = count || 0;
-                console.log('Total de inscrições:', inscricaoCount);
-                
-            } catch (error) {
-                console.log('Não foi possível buscar contador:', error);
-            }
-        }
-
-        // ===================================
-        // EVENT LISTENERS
-        // ===================================
-        
-        // Configurar campos condicionais
-        setupConditionalField('comorbidade', 'comorbidade-detalhes');
-        setupConditionalField('gravida', 'gravida-detalhes');
-        setupConditionalField('medicacao', 'medicacao-detalhes');
-        setupConditionalField('restricoes', 'restricoes-detalhes');
-        setupConditionalField('alergias', 'alergias-detalhes');
-        setupConditionalField('locomocao', 'locomocao-detalhes');
-
-        // Configurar mudança de sexo para atualizar datas
-        document.getElementById('sexo').addEventListener('change', atualizarDataRetiro);
-
-        // Configurar pagamento
-        document.getElementById('pagamento').addEventListener('change', function() {
-            const valorGroup = document.getElementById('valor-group');
-            const valorInput = document.getElementById('valor-pago');
-            const valorWarning = document.getElementById('valor-warning');
-            
-            if (this.value) {
-                valorGroup.style.display = 'block';
-                valorInput.required = true;
-                
-                if (this.value === 'ENTRADA-PRÉ') {
-                    valorInput.placeholder = '150,00';
-                    valorInput.value = '';
-                } else if (this.value === 'PAGAR-DIFERENÇA') {
-                    valorInput.placeholder = 'valor';
-                    valorInput.value = '';
-                } else if (this.value === 'RETIRO-INTEGRAL') {
-                    valorInput.placeholder = 'valor integral';
-                    valorInput.value = '';
-                }
-            } else {
-                valorGroup.style.display = 'none';
-                valorInput.required = false;
-            }
-            
-            validarValorMinimo();
-        });
-
-        document.getElementById('valor-pago').addEventListener('input', function() {
-            formatValor(this);
-            validarValorMinimo();
-        });
-
-        document.getElementById('whatsapp').addEventListener('input', function() {
-            formatWhatsApp(this);
-        });
-
-        // Converter para MAIÚSCULA (exceto email)
-        document.querySelectorAll('input[type="text"], textarea').forEach(input => {
-            if (input.id !== 'email') {
-                input.addEventListener('input', function() {
-                    this.value = this.value.toUpperCase();
-                });
-            }
-        });
-
-        // Manter email em minúscula
-        document.getElementById('email').addEventListener('input', function() {
-            this.value = this.value.toLowerCase();
-        });
-
-        // ===================================
-        // SUBMIT DO FORMULÁRIO
-        // ===================================
-        
-        document.getElementById('inscricao-form').addEventListener('submit', async function(e) {
-            e.preventDefault();
-            
-            if (isSubmitting) return;
-            isSubmitting = true;
-            
-            const formData = new FormData(this);
-            const dados = Object.fromEntries(formData);
-            
-        // ===================================
         // CRIAR POPUP DE SUCESSO
-        // ===================================
-        
-        function criarPopupSucesso(dados) {
-            // Criar overlay
+        function criarPopupSucesso(informacoes) {
             const overlay = document.createElement('div');
             overlay.style.cssText = `
                 position: fixed;
@@ -761,7 +576,6 @@
                 backdrop-filter: blur(5px);
             `;
 
-            // Criar popup
             const popup = document.createElement('div');
             popup.style.cssText = `
                 background: linear-gradient(135deg, #1a1a1a, #2d2d2d);
@@ -775,8 +589,6 @@
                 box-shadow: 0 20px 40px rgba(255, 107, 53, 0.3);
                 animation: popupSlideIn 0.3s ease-out;
             `;
-
-            const valorPago = dados['valor-pago'] ? parseFloat(dados['valor-pago'].replace(',', '.')) : 0;
 
             popup.innerHTML = `
                 <style>
@@ -839,22 +651,22 @@
                         <span><b>NOME:</b></span>
                     </div>
                     <div style="text-align: left; margin-bottom: 5px; font-weight: bold;">
-                        ${dados.nome.substring(0, 32)}
+                        ${informacoes.nome.substring(0, 32)}
                     </div>
                     
                     <div class="row">
                         <span><b>SEXO:</b></span>
-                        <span><b>${dados.sexo}</b></span>
+                        <span><b>${informacoes.sexo}</b></span>
                     </div>
                     
                     <div class="row">
                         <span><b>WHATSAPP:</b></span>
-                        <span><b>${dados.whatsapp}</b></span>
+                        <span><b>${informacoes.whatsapp}</b></span>
                     </div>
                     
                     <div class="row">
                         <span><b>VALOR PAGO:</b></span>
-                        <span><b>R$ ${dados['valor-pago']}</b></span>
+                        <span><b>R$ ${informacoes['valor-pago']}</b></span>
                     </div>
                     
                     <div class="line"></div>
@@ -928,7 +740,7 @@
                 <div style="background: #333; padding: 15px; border-radius: 8px; margin: 20px 0; line-height: 1.6;">
                     <h3 style="color: #ff6b35; margin-bottom: 15px;">📋 Próximos Passos:</h3>
                     <p style="font-size: 1.1em;">
-                        💰 Você informou que pagará <strong>R$ ${dados['valor-pago']}</strong> como entrada mínima.<br><br>
+                        💰 Você informou que pagará <strong>R$ ${informacoes['valor-pago']}</strong> como entrada mínima.<br><br>
                         🎽 <strong>LEMBRE-SE:</strong> Os 150 primeiros pagamentos ganham a camisa oficial do retiro!<br><br>
                         🏢 <strong>Compareça ao balcão e pague o valor mínimo de R$ 150,00</strong>
                     </p>
@@ -1007,52 +819,83 @@
             });
         }
 
-        // ===================================
-        // VALIDAÇÃO BÁSICA
-            if (dados.pagamento === 'ENTRADA-PRÉ') {
-                const valor = parseFloat(dados['valor-pago'].replace(',', '.'));
+        // EVENT LISTENERS
+        document.getElementById('sexo').addEventListener('change', atualizarDataRetiro);
+
+        // Configurar campos condicionais
+        configurarCampoCondicional('comorbidade', 'comorbidade-detalhes');
+        configurarCampoCondicional('gravida', 'gravida-detalhes');
+        configurarCampoCondicional('medicacao', 'medicacao-detalhes');
+        configurarCampoCondicional('restricoes', 'restricoes-detalhes');
+        configurarCampoCondicional('alergias', 'alergias-detalhes');
+        configurarCampoCondicional('locomocao', 'locomocao-detalhes');
+
+        // Configurar pagamento
+        document.getElementById('pagamento').addEventListener('change', function() {
+            const valorGroup = document.getElementById('valor-group');
+            const valorInput = document.getElementById('valor-pago');
+            
+            if (this.value) {
+                valorGroup.style.display = 'block';
+                valorInput.required = true;
+                
+                if (this.value === 'ENTRADA-PRÉ') {
+                    valorInput.placeholder = '150,00';
+                    valorInput.value = '';
+                } else if (this.value === 'PAGAR-DIFERENÇA') {
+                    valorInput.placeholder = 'valor';
+                    valorInput.value = '';
+                } else if (this.value === 'RETIRO-INTEGRAL') {
+                    valorInput.placeholder = 'valor integral';
+                    valorInput.value = '';
+                }
+            } else {
+                valorGroup.style.display = 'none';
+                valorInput.required = false;
+            }
+            
+            validarValorMinimo();
+        });
+
+        document.getElementById('valor-pago').addEventListener('input', function() {
+            formatarValor(this);
+            validarValorMinimo();
+        });
+
+        document.getElementById('whatsapp').addEventListener('input', function() {
+            formatarWhatsApp(this);
+        });
+
+        // Converter para MAIÚSCULA (exceto email)
+        document.querySelectorAll('input[type="text"], textarea').forEach(input => {
+            if (input.id !== 'email') {
+                input.addEventListener('input', function() {
+                    this.value = this.value.toUpperCase();
+                });
+            }
+        });
+
+        // Manter email em minúscula
+        document.getElementById('email').addEventListener('input', function() {
+            this.value = this.value.toLowerCase();
+        });
+
+        // SUBMIT DO FORMULÁRIO
+        document.getElementById('inscricao-form').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            if (isSubmittingForm) return;
+            isSubmittingForm = true;
+            
+            const formData = new FormData(this);
+            const informacoes = Object.fromEntries(formData);
+            
+            // Validação básica
+            if (informacoes.pagamento === 'ENTRADA-PRÉ') {
+                const valor = parseFloat(informacoes['valor-pago'].replace(',', '.'));
                 if (valor < 150) {
                     alert('O valor mínimo da pré-inscrição é R$ 150,00');
-                    isSubmitting = false;
-                    return;
-                }
-            }
-
-            // Preparar dados para Supabase
-            const dadosSupabase = {
-                nome: dados.nome,
-                sexo: dados.sexo,
-                idade: dados.idade,
-                whatsapp: dados.whatsapp,
-                email: dados.email,
-                endereco: dados.endereco,
-                numero: dados.numero,
-                bairro: dados.bairro,
-                cidade: dados.cidade,
-                comorbidade: dados.comorbidade,
-                comorbidadeQual: dados['comorbidade-qual'] || '',
-                gravida: dados.gravida,
-                gravidaObservacao: dados['gravida-observacao'] || '',
-                medicacao: dados.medicacao,
-                medicacaoQual: dados['medicacao-qual'] || '',
-                restricoes: dados.restricoes,
-                restricoesQuais: dados['restricoes-quais'] || '',
-                alergias: dados.alergias,
-                alergiasQuais: dados['alergias-quais'] || '',
-                locomocao: dados.locomocao,
-                locomocaoQual: dados['locomocao-qual'] || '',
-                corRede: dados['cor-rede'],
-                vaiServirReceber: dados['vai-servir-receber'],
-                statusPagamento: dados.pagamento,
-                valorPago: dados['valor-pago'] || '',
-                formaPagamento: dados['forma-pagamento'],
-                autorizacaoImagem: dados['autorizacao-imagem'] ? 'SIM' : 'NÃO'
-            }; básica
-            if (dados.pagamento === 'ENTRADA-PRÉ') {
-                const valor = parseFloat(dados['valor-pago'].replace(',', '.'));
-                if (valor < 200) {
-                    alert('O valor mínimo da pré-inscrição é R$ 200,00');
-                    isSubmitting = false;
+                    isSubmittingForm = false;
                     return;
                 }
             }
@@ -1066,36 +909,42 @@
             document.getElementById('error-message').style.display = 'none';
 
             // Preparar dados para Supabase
-            const dadosSupabase = {
-                nome: dados.nome,
-                genero: dados.genero,
-                idade: dados.idade,
-                whatsapp: dados.whatsapp,
-                comorbidade: dados.comorbidade,
-                comorbidadeQual: dados['comorbidade-qual'] || '',
-                gravida: dados.gravida,
-                gravidaObservacao: dados['gravida-observacao'] || '',
-                medicacao: dados.medicacao,
-                medicacaoQual: dados['medicacao-qual'] || '',
-                restricoes: dados.restricoes,
-                restricoesQuais: dados['restricoes-quais'] || '',
-                alergias: dados.alergias,
-                alergiasQuais: dados['alergias-quais'] || '',
-                locomocao: dados.locomocao,
-                locomocaoQual: dados['locomocao-qual'] || '',
-                corRede: dados['cor-rede'],
-                vaiServirReceber: dados['vai-servir-receber'],
-                statusPagamento: dados.pagamento,
-                valorPago: dados['valor-pago'] || '',
-                formaPagamento: dados['forma-pagamento']
+            const informacoesCompletas = {
+                nome: informacoes.nome,
+                sexo: informacoes.sexo,
+                idade: informacoes.idade,
+                whatsapp: informacoes.whatsapp,
+                email: informacoes.email,
+                endereco: informacoes.endereco,
+                numero: informacoes.numero,
+                bairro: informacoes.bairro,
+                cidade: informacoes.cidade,
+                comorbidade: informacoes.comorbidade,
+                comorbidadeQual: informacoes['comorbidade-qual'] || '',
+                gravida: informacoes.gravida,
+                gravidaObservacao: informacoes['gravida-observacao'] || '',
+                medicacao: informacoes.medicacao,
+                medicacaoQual: informacoes['medicacao-qual'] || '',
+                restricoes: informacoes.restricoes,
+                restricoesQuais: informacoes['restricoes-quais'] || '',
+                alergias: informacoes.alergias,
+                alergiasQuais: informacoes['alergias-quais'] || '',
+                locomocao: informacoes.locomocao,
+                locomocaoQual: informacoes['locomocao-qual'] || '',
+                corRede: informacoes['cor-rede'],
+                vaiServirReceber: informacoes['vai-servir-receber'],
+                statusPagamento: informacoes.pagamento,
+                valorPago: informacoes['valor-pago'] || '',
+                formaPagamento: informacoes['forma-pagamento'],
+                autorizacaoImagem: informacoes['autorizacao-imagem'] ? 'SIM' : 'NÃO'
             };
 
             try {
-                const result = await submitToSupabase(dadosSupabase);
+                const resultado = await enviarParaSupabase(informacoesCompletas);
                 
-                if (result.success) {
+                if (resultado.success) {
                     // Criar popup de sucesso
-                    criarPopupSucesso(dados);
+                    criarPopupSucesso(informacoes);
                     
                     // Reset do formulário
                     this.reset();
@@ -1112,10 +961,10 @@
                     // Erro
                     document.getElementById('error-message').style.display = 'block';
                     document.getElementById('error-details').innerHTML = 
-                        `❌ Erro: ${result.error}<br>📧 Seus dados foram salvos. Entraremos em contato via WhatsApp.`;
+                        `❌ Erro: ${resultado.error}<br>📧 Seus dados foram salvos. Entraremos em contato via WhatsApp.`;
                     
                     // Salvar dados localmente para backup
-                    console.log('💾 Backup dos dados:', dadosFormulario);
+                    console.log('💾 Backup dos dados:', informacoesCompletas);
                 }
                 
             } catch (error) {
@@ -1126,40 +975,16 @@
             } finally {
                 submitBtn.textContent = 'Confirmar Inscrição';
                 submitBtn.disabled = false;
-                isSubmitting = false;
+                isSubmittingForm = false;
             }
         });
 
-        // ===================================
-        // INICIALIZAÇÃO
-        // ===================================
-        
-        // Verificar se o Supabase está configurado
-        function verificarConfiguracaoSupabase() {
-            // Suas chaves estão configuradas corretamente
-            return true;
-        }
-
-        // Executar verificações ao carregar
-        document.addEventListener('DOMContentLoaded', function() {
-            if (verificarConfiguracaoSupabase()) {
-                if (initializeSupabase()) {
-                    console.log('🎯 Supabase inicializado com sucesso!');
-                    buscarContadorInscricoes();
-                }
-            }
-        });
-
-        // ===================================
         // FUNÇÕES DE TESTE
-        // ===================================
-        
-        // Função para testar conexão (execute no console do navegador)
-        window.testarSupabase = async function() {
+        window.verificarConexao = async function() {
             console.log('🧪 Testando conexão com Supabase...');
             
             try {
-                const { count, error } = await supabase
+                const { count, error } = await retiroSupabase
                     .from('inscricoes')
                     .select('*', { count: 'exact', head: true });
                 
@@ -1173,12 +998,11 @@
             }
         };
 
-        // Função para inserir dados de teste
-        window.testeInscricao = async function() {
+        window.inserirTeste = async function() {
             console.log('🧪 Testando inserção...');
             
-            const dadosTesteCompleto = {
-                nome: 'TESTE SISTEMA',
+            const testeInfo = {
+                nome: 'TESTE SISTEMA NOVO',
                 sexo: 'MASCULINO',
                 idade: 25,
                 whatsapp: '(11) 99999-9999',
@@ -1207,7 +1031,7 @@
                 autorizacaoImagem: 'SIM'
             };
             
-            const resultadoTeste = await submitToSupabase(dadosTesteCompleto);
+            const resultadoTeste = await enviarParaSupabase(testeInfo);
             
             if (resultadoTeste.success) {
                 console.log('✅ Teste de inserção OK!');
@@ -1218,57 +1042,18 @@
             }
         };
 
-        console.log('🎯 Sistema Supabase carregado!');
-        console.log('🎽 Informações sobre camisa incluídas!');
-        console.log('🖼️ Logo configurada - troque o endereço na linha 78!');
-        console.log('💡 Para testar a conexão, execute: testarSupabase()');
-        console.log('💡 Para testar inserção, execute: testeInscricao()');
-        console.log('');
-        console.log('📋 ESTRUTURA ATUALIZADA DO BANCO (SQL):');
-        console.log(`
--- Estrutura atualizada da tabela inscricoes
-CREATE TABLE IF NOT EXISTS inscricoes (
-    id SERIAL PRIMARY KEY,
-    nome_completo VARCHAR(255) NOT NULL,
-    sexo VARCHAR(20) NOT NULL CHECK (sexo IN ('MASCULINO', 'FEMININO')),
-    idade INTEGER NOT NULL CHECK (idade >= 12 AND idade <= 100),
-    whatsapp VARCHAR(20) NOT NULL UNIQUE,
-    email VARCHAR(255) NOT NULL,
-    endereco VARCHAR(500) NOT NULL,
-    numero VARCHAR(20) NOT NULL,
-    bairro VARCHAR(100) NOT NULL,
-    cidade VARCHAR(100) NOT NULL,
-    comorbidade VARCHAR(10) NOT NULL CHECK (comorbidade IN ('SIM', 'NÃO')),
-    comorbidade_qual TEXT,
-    gravida VARCHAR(10) NOT NULL CHECK (gravida IN ('SIM', 'NÃO')),
-    gravidez_observacao TEXT,
-    medicacao VARCHAR(10) NOT NULL CHECK (medicacao IN ('SIM', 'NÃO')),
-    medicacao_qual TEXT,
-    restricoes_alimentares VARCHAR(10) NOT NULL CHECK (restricoes_alimentares IN ('SIM', 'NÃO')),
-    restricoes_quais TEXT,
-    alergias VARCHAR(10) NOT NULL CHECK (alergias IN ('SIM', 'NÃO')),
-    alergias_quais TEXT,
-    limitacao_locomocao VARCHAR(10) NOT NULL CHECK (limitacao_locomocao IN ('SIM', 'NÃO')),
-    locomocao_qual TEXT,
-    cor_rede VARCHAR(20) NOT NULL,
-    vai_servir_receber VARCHAR(20) NOT NULL CHECK (vai_servir_receber IN ('TRABALHO', 'ENCONTRISTA')),
-    status_pagamento VARCHAR(50) NOT NULL,
-    valor_pago VARCHAR(20),
-    forma_pagamento VARCHAR(50) NOT NULL,
-    autorizacao_imagem VARCHAR(10) NOT NULL CHECK (autorizacao_imagem IN ('SIM', 'NÃO')),
-    data_inscricao TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
-    data_confirmacao_pagamento TIMESTAMP WITH TIME ZONE,
-    status VARCHAR(20) DEFAULT 'ATIVO',
-    created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
-    updated_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
-);
+        // INICIALIZAÇÃO
+        document.addEventListener('DOMContentLoaded', function() {
+            if (inicializarSistema()) {
+                console.log('🎯 Sistema do retiro inicializado com sucesso!');
+                console.log('💡 Para testar a conexão, execute: verificarConexao()');
+                console.log('💡 Para testar inserção, execute: inserirTeste()');
+            }
+        });
 
--- Índices para performance
-CREATE UNIQUE INDEX IF NOT EXISTS idx_whatsapp_unique ON inscricoes (whatsapp);
-CREATE INDEX IF NOT EXISTS idx_sexo ON inscricoes (sexo);
-CREATE INDEX IF NOT EXISTS idx_status ON inscricoes (status);
-CREATE INDEX IF NOT EXISTS idx_data_inscricao ON inscricoes (data_inscricao);
-        `);
+        console.log('🎯 Sistema do Retiro 2025 carregado!');
+        console.log('🎽 Todas as funcionalidades incluídas!');
+        console.log('🖼️ Logo configurada!');
     </script>
 </body>
 </html>
