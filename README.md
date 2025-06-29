@@ -133,7 +133,7 @@
             background: #ff6b35;
         }
 
-        /* Popup de sucesso - NOVO CSS MELHORADO */
+        /* Popup de sucesso - MELHORADO */
         .popup-overlay {
             position: fixed !important;
             top: 0 !important;
@@ -226,6 +226,8 @@
             <button onclick="toggleDebug()" style="position: absolute; top: 10px; right: 10px; background: #333; color: #fff; border: none; padding: 5px 10px; border-radius: 5px; font-size: 0.8em; cursor: pointer;">🔧</button>
             
             <div class="genero-selector" id="date-display">PROGRAMAÇÃO - O RETIRO</div>
+            
+            <h1 class="titulo-retiro">O RETIRO</h1>
             
             <div class="subtitle-retiro">VISÃO • MISSÃO • PRESSÃO</div>
         </div>
@@ -649,7 +651,6 @@
             debugLog('🧪 Testando conexão com Supabase...');
             
             try {
-                // Tentar uma consulta simples primeiro
                 const { data, error } = await retiroSupabase
                     .from('inscricoes')
                     .select('id', { count: 'exact', head: true });
@@ -740,22 +741,20 @@
             }
         }
 
-        // INTEGRAÇÃO COM SUPABASE MELHORADA
+        // INTEGRAÇÃO COM SUPABASE CORRIGIDA
         async function enviarParaSupabase(informacoes) {
             try {
                 debugLog('📤 Enviando para Supabase...', informacoes.nome);
 
-                // Gerar WhatsApp único para evitar conflitos
-                const whatsappOriginal = informacoes.whatsapp || '';
-                const timestamp = Date.now();
-                const whatsappUnico = whatsappOriginal.replace(/\D/g, '') + '_' + timestamp;
+                // CORREÇÃO: Usar WhatsApp limpo sem timestamp
+                const whatsappLimpo = informacoes.whatsapp.replace(/\D/g, '');
 
                 // Preparar dados com validação
                 const dadosParaInserir = {
                     nome_completo: informacoes.nome || '',
                     sexo: informacoes.sexo || '',
                     idade: parseInt(informacoes.idade) || 0,
-                    whatsapp: whatsappUnico,
+                    whatsapp: whatsappLimpo, // USAR WHATSAPP LIMPO
                     email: informacoes.email || '',
                     endereco: informacoes.endereco || '',
                     numero: informacoes.numero || '',
@@ -803,7 +802,12 @@
                     } else if (error.code === '23505') {
                         return { 
                             success: false, 
-                            error: 'Registro duplicado. Esta pessoa já pode estar inscrita.' 
+                            error: 'Este WhatsApp já está cadastrado. Use outro número ou entre em contato conosco.' 
+                        };
+                    } else if (error.message.includes('value too long')) {
+                        return { 
+                            success: false, 
+                            error: 'Algum campo está muito longo. Verifique os dados e tente novamente.' 
                         };
                     }
                     
@@ -888,7 +892,7 @@
                 <div style="font-size: 4em; margin-bottom: 20px;">🎉</div>
                 
                 <h2 style="color: #ff6b35; font-size: 2em; margin-bottom: 20px; font-weight: 900;">
-                    TENHA UM EXCELENTE RETIRO!
+                    INSCRIÇÃO REALIZADA COM SUCESSO!
                 </h2>
                 
                 <!-- RECIBO PARA IMPRESSÃO TÉRMICA -->
@@ -1053,6 +1057,9 @@
             overlay.appendChild(popup);
             document.body.appendChild(overlay);
 
+            // Forçar o popup a aparecer
+            overlay.style.display = 'flex';
+            
             // Remover popup ao clicar no overlay
             overlay.addEventListener('click', function(e) {
                 if (e.target === overlay) {
@@ -1133,7 +1140,7 @@
             this.value = this.value.toLowerCase();
         });
 
-        // SUBMIT DO FORMULÁRIO
+        // SUBMIT DO FORMULÁRIO - CORRIGIDO
         document.getElementById('inscricao-form').addEventListener('submit', async function(e) {
             e.preventDefault();
             
@@ -1202,10 +1209,8 @@
                 if (resultado.success) {
                     debugLog('✅ Formulário enviado com sucesso!');
                     
-                    // Criar popup de sucesso - GARANTIDO QUE VAI APARECER
-                    setTimeout(() => {
-                        criarPopupSucesso(informacoes);
-                    }, 100);
+                    // GARANTIR QUE O POPUP APAREÇA
+                    criarPopupSucesso(informacoes);
                     
                     // Reset do formulário
                     this.reset();
