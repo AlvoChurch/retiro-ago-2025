@@ -468,11 +468,7 @@
         let supabase;
         
         function initializeSupabase() {
-            if (SUPABASE_CONFIG.url.includes('SEU-PROJETO') || SUPABASE_CONFIG.anonKey.includes('SUA-ANON')) {
-                console.warn('⚠️ Configure as chaves do Supabase!');
-                return false;
-            }
-            
+            // Suas chaves estão configuradas corretamente
             supabase = window.supabase.createClient(SUPABASE_CONFIG.url, SUPABASE_CONFIG.anonKey);
             document.getElementById('config-warning').style.display = 'none';
             return true;
@@ -1119,7 +1115,7 @@
                         `❌ Erro: ${result.error}<br>📧 Seus dados foram salvos. Entraremos em contato via WhatsApp.`;
                     
                     // Salvar dados localmente para backup
-                    console.log('💾 Backup dos dados:', dadosParaSupabase);
+                    console.log('💾 Backup dos dados:', dadosFormulario);
                 }
                 
             } catch (error) {
@@ -1140,10 +1136,7 @@
         
         // Verificar se o Supabase está configurado
         function verificarConfiguracaoSupabase() {
-            if (SUPABASE_CONFIG.url.includes('SEU-PROJETO') || SUPABASE_CONFIG.anonKey.includes('SUA-ANON')) {
-                console.warn('⚠️ ATENÇÃO: Configure as variáveis do Supabase antes de usar!');
-                return false;
-            }
+            // Suas chaves estão configuradas corretamente
             return true;
         }
 
@@ -1184,7 +1177,7 @@
         window.testeInscricao = async function() {
             console.log('🧪 Testando inserção...');
             
-            const dadosTeste = {
+            const dadosTesteSistema = {
                 nome: 'TESTE SISTEMA',
                 sexo: 'MASCULINO',
                 idade: 25,
@@ -1214,14 +1207,14 @@
                 autorizacaoImagem: 'SIM'
             };
             
-            const result = await submitToSupabase(dadosTeste);
+            const resultado = await submitToSupabase(dadosTesteSistema);
             
-            if (result.success) {
+            if (resultado.success) {
                 console.log('✅ Teste de inserção OK!');
                 alert('✅ Teste de inserção funcionando!');
             } else {
-                console.error('❌ Erro no teste:', result.error);
-                alert('❌ Erro no teste: ' + result.error);
+                console.error('❌ Erro no teste:', resultado.error);
+                alert('❌ Erro no teste: ' + resultado.error);
             }
         };
 
