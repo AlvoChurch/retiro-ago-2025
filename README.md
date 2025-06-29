@@ -154,7 +154,10 @@
             </div>
             
             <!-- Texto da Igreja centralizado -->
-            <div class="church-name">ALVO - UMA IGREJA QUE PENSA</div>
+            <div class="church-name">
+                ALVO - UMA IGREJA, UMA VISÃO,<br>
+                <strong>VEM E VÊ!</strong>
+            </div>
             
             <!-- Texto "PROGRAMAÇÃO - O RETIRO" em laranja -->
             <div class="genero-selector" id="date-display">PROGRAMAÇÃO - O RETIRO</div>
@@ -164,37 +167,33 @@
         </div>
 
         <div class="form-container">
-            <div class="supabase-info">
-                ➕ <strong>Se alguém quer vir após mim, negue-se a si mesmo, e tome cada dia a sua cruz, e siga-me.</strong> Lucas 9:23
-            </div>
-
-            <div class="config-warning" id="config-warning">
-                ⚠️ CONFIGURE AS CHAVES DO SUPABASE NO CÓDIGO ANTES DE USAR!
-            </div>
-
             <div class="info-box">
                 <strong>🎯 Inscrição Rápida:</strong> Preencha os dados essenciais para sua pré inscrição. O pagamento deverá ser realizado presencialmente.
             </div>
 
             <div class="info-box">
                 <strong>💰 Informações de Pagamento:</strong><br>
-                • <strong>Valor Total:</strong> R$ 520,00<br>
-                • <strong>Entrada para Pré-Inscrição:</strong> R$ 200,00<br>
-                • <strong>Saldo Restante:</strong> R$ 320,00 (até o dia do retiro)
+                • <strong>Entrada Mínima para Pré-Inscrição:</strong> R$ 150,00
             </div>
 
             <div class="info-box">
                 <strong>🎽 PROMOÇÃO ESPECIAL - CAMISA DO RETIRO:</strong><br>
-                • <strong>As 150 primeiras pessoas que quitarem o valor total no barracão ganham a camisa oficial do retiro!</strong><br>
-                • <strong>Critério:</strong> Ordem de quitação no balcão de pagamento presencial no barracão<br>
-                • <strong>Como garantir:</strong> Compareça ao balcão e quite o valor total de R$ 520,00
+                • <strong>Os 150 primeiros pagamentos ganham a camisa oficial do RETIRO!</strong><br>
+                • <strong>Como garantir:</strong> Compareça ao balcão e pague o valor mínimo de R$ 150,00
+            </div>
+
+            <div class="config-warning" id="config-warning">
+                ⚠️ CONFIGURE AS CHAVES DO SUPABASE NO CÓDIGO ANTES DE USAR!
             </div>
 
             <div class="success-message" id="success-message">
-                🙌 <strong>Pré-inscrição realizada com sucesso!</strong><br>
+                🙌 <strong>Tenha um excelente Retiro!</strong><br>
                 <div id="payment-instructions" style="margin-top: 10px; padding: 10px; background: #333; border-radius: 5px;">
                     <strong>📋 Próximos Passos:</strong><br>
                     <span id="next-steps"></span>
+                    <div style="margin-top: 15px; padding: 10px; background: #444; border-radius: 5px; font-size: 0.9em; color: #ccc;">
+                        ⚠️ <strong>Importante:</strong> Não devolvemos ou transferimos o valor da inscrição
+                    </div>
                 </div>
             </div>
 
@@ -216,11 +215,11 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="genero">Gênero <span class="required">*</span></label>
-                    <select id="genero" name="genero" required>
-                        <option value="">Selecione seu gênero</option>
-                        <option value="HOMEM">👨 Homem</option>
-                        <option value="MULHER">👩 Mulher</option>
+                    <label for="sexo">Sexo <span class="required">*</span></label>
+                    <select id="sexo" name="sexo" required>
+                        <option value="">Selecione seu sexo</option>
+                        <option value="MASCULINO">👨 Masculino</option>
+                        <option value="FEMININO">👩 Feminino</option>
                     </select>
                 </div>
 
@@ -232,6 +231,31 @@
                 <div class="form-group">
                     <label for="whatsapp">WhatsApp <span class="required">*</span></label>
                     <input type="tel" id="whatsapp" name="whatsapp" placeholder="(11) 99999-9999" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="email">Email <span class="required">*</span></label>
+                    <input type="email" id="email" name="email" placeholder="SEU@EMAIL.COM" required style="text-transform: lowercase;">
+                </div>
+
+                <div class="form-group">
+                    <label for="endereco">Endereço <span class="required">*</span></label>
+                    <input type="text" id="endereco" name="endereco" placeholder="RUA, AVENIDA..." required>
+                </div>
+
+                <div class="form-group">
+                    <label for="numero">Número <span class="required">*</span></label>
+                    <input type="text" id="numero" name="numero" placeholder="123" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="bairro">Bairro <span class="required">*</span></label>
+                    <input type="text" id="bairro" name="bairro" placeholder="NOME DO BAIRRO" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="cidade">Cidade <span class="required">*</span></label>
+                    <input type="text" id="cidade" name="cidade" placeholder="NOME DA CIDADE" required>
                 </div>
 
                 <!-- INFORMAÇÕES DE SAÚDE E ACESSIBILIDADE -->
@@ -250,9 +274,9 @@
                     </div>
                 </div>
 
-                <div class="form-group">
+                <div class="form-group" id="gravida-group" style="display: none;">
                     <label for="gravida">Está grávida? <span class="required">*</span></label>
-                    <select id="gravida" name="gravida" required>
+                    <select id="gravida" name="gravida">
                         <option value="">Selecione uma opção</option>
                         <option value="NÃO">❌ Não</option>
                         <option value="SIM">✅ Sim</option>
@@ -373,7 +397,7 @@
                     <label for="pagamento">Status do Pagamento do retiro <span class="required">*</span></label>
                     <select id="pagamento" name="pagamento" required>
                         <option value="">Selecione o status do pagamento</option>
-                        <option value="ENTRADA-PRÉ">💰 Entrada Pré Inscrição (R$ 200+)</option>
+                        <option value="ENTRADA-PRÉ">💰 Entrada Pré Inscrição (R$ 150,00+)</option>
                         <option value="RETIRO-INTEGRAL">🎯 Retiro Integral</option>
                         <option value="PAGAR-DIFERENÇA">📅 Pagar Diferença</option>
                     </select>
@@ -382,11 +406,11 @@
                 <div class="form-group" id="valor-group" style="display: none;">
                     <label for="valor-pago">Valor que será pago <span class="required">*</span></label>
                     <div style="position: relative;">
-                        <input type="text" id="valor-pago" name="valor-pago" placeholder="200,00" style="padding-left: 40px;">
+                        <input type="text" id="valor-pago" name="valor-pago" placeholder="150,00" style="padding-left: 40px;">
                         <span style="position: absolute; left: 15px; top: 50%; transform: translateY(-50%); color: #ccc; font-weight: bold;">R$</span>
                     </div>
                     <div id="valor-warning" style="display: none; background: #660000; border: 1px solid #cc0000; color: #ff6666; padding: 10px; border-radius: 5px; margin-top: 10px;">
-                        ⚠️ <strong>Atenção:</strong> O valor mínimo da pré-inscrição é R$ 200,00
+                        ⚠️ <strong>Atenção:</strong> O valor mínimo da pré-inscrição é R$ 150,00
                     </div>
                 </div>
 
@@ -399,6 +423,24 @@
                         <option value="CT-DÉBITO">💳 Cartão Débito</option>
                         <option value="CT-CRÉDITO">💳 Cartão Crédito</option>
                     </select>
+                </div>
+
+                <!-- AUTORIZAÇÃO DE IMAGEM -->
+                <div class="section-title">📸 Autorização de Imagem</div>
+
+                <div class="form-group">
+                    <div style="background: #1a1a2e; border: 2px solid #ff6b35; padding: 20px; border-radius: 8px; margin-bottom: 15px;">
+                        <p style="color: #fff; font-size: 1.1em; line-height: 1.6; margin-bottom: 15px;">
+                            <strong>📹 AUTORIZAÇÃO DE USO DE IMAGEM:</strong><br>
+                            O retiro será gravado e fotografado para fins de registro, divulgação e memória do evento. 
+                            As imagens poderão ser utilizadas em redes sociais, site da igreja, materiais promocionais e outros meios de comunicação da ALVO.
+                        </p>
+                    </div>
+                    
+                    <label for="autorizacao-imagem">
+                        <input type="checkbox" id="autorizacao-imagem" name="autorizacao-imagem" required style="width: auto; margin-right: 10px; transform: scale(1.5);">
+                        <span style="color: #ff6b35; font-weight: bold;">*</span> Eu autorizo o uso da minha imagem conforme descrito acima
+                    </label>
                 </div>
 
                 <button type="submit" class="submit-btn" id="submit-btn">
@@ -558,9 +600,14 @@
                     .from('inscricoes')
                     .insert([{
                         nome_completo: dados.nome,
-                        genero: dados.genero,
+                        sexo: dados.sexo,
                         idade: parseInt(dados.idade),
                         whatsapp: dados.whatsapp,
+                        email: dados.email,
+                        endereco: dados.endereco,
+                        numero: dados.numero,
+                        bairro: dados.bairro,
+                        cidade: dados.cidade,
                         comorbidade: dados.comorbidade,
                         comorbidade_qual: dados.comorbidadeQual || null,
                         gravida: dados.gravida,
@@ -578,6 +625,9 @@
                         status_pagamento: dados.statusPagamento,
                         valor_pago: dados.valorPago || null,
                         forma_pagamento: dados.formaPagamento,
+                        autorizacao_imagem: dados.autorizacaoImagem,
+                        data_inscricao: new Date().toISOString(),
+                        data_confirmacao_pagamento: null,
                         status: 'ATIVO'
                     }])
                     .select();
@@ -608,7 +658,7 @@
                 if (error) throw error;
 
                 inscricaoCount = count || 0;
-                document.getElementById('inscricoes-count').textContent = inscricaoCount;
+                console.log('Total de inscrições:', inscricaoCount);
                 
             } catch (error) {
                 console.log('Não foi possível buscar contador:', error);
@@ -619,7 +669,7 @@
         // EVENT LISTENERS
         // ===================================
         
-        document.getElementById('genero').addEventListener('change', atualizarDataRetiro);
+        document.getElementById('sexo').addEventListener('change', atualizarDataRetiro);
 
         // Configurar campos condicionais
         setupConditionalField('comorbidade', 'comorbidade-detalhes');
@@ -640,14 +690,14 @@
                 valorInput.required = true;
                 
                 if (this.value === 'ENTRADA-PRÉ') {
-                    valorInput.placeholder = '200,00';
+                    valorInput.placeholder = '150,00';
                     valorInput.value = '';
                 } else if (this.value === 'PAGAR-DIFERENÇA') {
-                    valorInput.placeholder = '320,00';
+                    valorInput.placeholder = 'valor';
                     valorInput.value = '';
                 } else if (this.value === 'RETIRO-INTEGRAL') {
-                    valorInput.placeholder = '520,00';
-                    valorInput.value = '520,00';
+                    valorInput.placeholder = 'valor integral';
+                    valorInput.value = '';
                 }
             } else {
                 valorGroup.style.display = 'none';
@@ -666,11 +716,18 @@
             formatWhatsApp(this);
         });
 
-        // Converter para MAIÚSCULA
+        // Converter para MAIÚSCULA (exceto email)
         document.querySelectorAll('input[type="text"], textarea').forEach(input => {
-            input.addEventListener('input', function() {
-                this.value = this.value.toUpperCase();
-            });
+            if (input.id !== 'email') {
+                input.addEventListener('input', function() {
+                    this.value = this.value.toUpperCase();
+                });
+            }
+        });
+
+        // Manter email em minúscula
+        document.getElementById('email').addEventListener('input', function() {
+            this.value = this.value.toLowerCase();
         });
 
         // ===================================
@@ -686,7 +743,314 @@
             const formData = new FormData(this);
             const dados = Object.fromEntries(formData);
             
-            // Validação básica
+        // ===================================
+        // CRIAR POPUP DE SUCESSO
+        // ===================================
+        
+        function criarPopupSucesso(dados) {
+            // Criar overlay
+            const overlay = document.createElement('div');
+            overlay.style.cssText = `
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: rgba(0, 0, 0, 0.8);
+                z-index: 10000;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                backdrop-filter: blur(5px);
+            `;
+
+            // Criar popup
+            const popup = document.createElement('div');
+            popup.style.cssText = `
+                background: linear-gradient(135deg, #1a1a1a, #2d2d2d);
+                border: 2px solid #ff6b35;
+                border-radius: 15px;
+                padding: 40px;
+                max-width: 500px;
+                width: 90%;
+                text-align: center;
+                color: white;
+                box-shadow: 0 20px 40px rgba(255, 107, 53, 0.3);
+                animation: popupSlideIn 0.3s ease-out;
+            `;
+
+            const valorPago = dados['valor-pago'] ? parseFloat(dados['valor-pago'].replace(',', '.')) : 0;
+
+            popup.innerHTML = `
+                <style>
+                    @keyframes popupSlideIn {
+                        from { transform: scale(0.7); opacity: 0; }
+                        to { transform: scale(1); opacity: 1; }
+                    }
+                    .receipt-thermal {
+                        font-family: 'Courier New', monospace;
+                        font-size: 12px;
+                        line-height: 1.2;
+                        width: 280px;
+                        margin: 20px auto;
+                        background: white;
+                        color: black;
+                        padding: 10px;
+                        border: 1px solid #ccc;
+                        text-align: center;
+                    }
+                    .receipt-thermal .header {
+                        font-weight: bold;
+                        font-size: 14px;
+                        margin-bottom: 5px;
+                    }
+                    .receipt-thermal .line {
+                        border-bottom: 1px dashed #000;
+                        margin: 5px 0;
+                    }
+                    .receipt-thermal .row {
+                        display: flex;
+                        justify-content: space-between;
+                        margin: 2px 0;
+                    }
+                    .receipt-thermal .center {
+                        text-align: center;
+                        font-weight: bold;
+                    }
+                    .receipt-thermal .small {
+                        font-size: 10px;
+                    }
+                </style>
+                
+                <div style="font-size: 4em; margin-bottom: 20px;">🎉</div>
+                
+                <h2 style="color: #ff6b35; font-size: 2em; margin-bottom: 20px; font-weight: 900;">
+                    TENHA UM EXCELENTE RETIRO!
+                </h2>
+                
+                <!-- RECIBO PARA IMPRESSÃO TÉRMICA -->
+                <div class="receipt-thermal" id="thermal-receipt">
+                    <div class="header">ALVO - UMA IGREJA, UMA VISAO</div>
+                    <div class="header">VEM E VE!</div>
+                    <div class="line"></div>
+                    
+                    <div class="center">*** COMPROVANTE PRE-INSCRICAO ***</div>
+                    <div class="center">O RETIRO 2025</div>
+                    <div class="line"></div>
+                    
+                    <div class="row">
+                        <span><b>NOME:</b></span>
+                    </div>
+                    <div style="text-align: left; margin-bottom: 5px; font-weight: bold;">
+                        ${dados.nome.substring(0, 32)}
+                    </div>
+                    
+                    <div class="row">
+                        <span><b>SEXO:</b></span>
+                        <span><b>${dados.sexo}</b></span>
+                    </div>
+                    
+                    <div class="row">
+                        <span><b>WHATSAPP:</b></span>
+                        <span><b>${dados.whatsapp}</b></span>
+                    </div>
+                    
+                    <div class="row">
+                        <span><b>VALOR PAGO:</b></span>
+                        <span><b>R$ ${dados['valor-pago']}</b></span>
+                    </div>
+                    
+                    <div class="line"></div>
+                    
+                    <div class="center small">
+                        DATA: ${new Date().toLocaleDateString('pt-BR')}<br>
+                        HORA: ${new Date().toLocaleTimeString('pt-BR')}
+                    </div>
+                    
+                    <div class="line"></div>
+                    
+                    <div class="center">
+                        <b>🎽 PROMOCAO CAMISA 🎽</b><br>
+                        <span class="small">150 PRIMEIROS PAGAMENTOS<br>
+                        GANHAM A CAMISA OFICIAL!</span>
+                    </div>
+                    
+                    <div class="line"></div>
+                    
+                    <div class="center small">
+                        <b>IMPORTANTE:</b><br>
+                        NAO DEVOLVEMOS OU<br>
+                        TRANSFERIMOS O VALOR<br>
+                        DA INSCRICAO
+                    </div>
+                    
+                    <div class="line"></div>
+                    
+                    <div class="center small">
+                        RETIRO MASCULINO:<br>
+                        8, 9 E 10 DE AGOSTO<br><br>
+                        RETIRO FEMININO:<br>
+                        15, 16 E 17 DE AGOSTO
+                    </div>
+                    
+                    <div class="line"></div>
+                    <div class="center small">*** TENHA UM EXCELENTE RETIRO ***</div>
+                </div>
+                
+                <div style="margin: 20px 0;">
+                    <button onclick="imprimirRecibo()" 
+                            style="
+                                background: #4ade80;
+                                color: white;
+                                border: none;
+                                padding: 12px 30px;
+                                border-radius: 8px;
+                                font-size: 1.1em;
+                                font-weight: 600;
+                                cursor: pointer;
+                                margin-right: 10px;
+                            ">
+                        🖨️ IMPRIMIR RECIBO
+                    </button>
+                    
+                    <button onclick="this.parentElement.parentElement.parentElement.remove()" 
+                            style="
+                                background: linear-gradient(45deg, #ff6b35 0%, #ff8a5b 100%);
+                                color: white;
+                                border: none;
+                                padding: 12px 30px;
+                                border-radius: 8px;
+                                font-size: 1.1em;
+                                font-weight: 600;
+                                cursor: pointer;
+                            ">
+                        FECHAR
+                    </button>
+                </div>
+                
+                <div style="background: #333; padding: 15px; border-radius: 8px; margin: 20px 0; line-height: 1.6;">
+                    <h3 style="color: #ff6b35; margin-bottom: 15px;">📋 Próximos Passos:</h3>
+                    <p style="font-size: 1.1em;">
+                        💰 Você informou que pagará <strong>R$ ${dados['valor-pago']}</strong> como entrada mínima.<br><br>
+                        🎽 <strong>LEMBRE-SE:</strong> Os 150 primeiros pagamentos ganham a camisa oficial do retiro!<br><br>
+                        🏢 <strong>Compareça ao balcão e pague o valor mínimo de R$ 150,00</strong>
+                    </p>
+                </div>
+            `;
+
+            // Função para imprimir recibo
+            window.imprimirRecibo = function() {
+                const recibo = document.getElementById('thermal-receipt').outerHTML;
+                const printWindow = window.open('', '_blank');
+                printWindow.document.write(`
+                    <html>
+                        <head>
+                            <title>Recibo - O Retiro 2025</title>
+                            <style>
+                                body { 
+                                    margin: 0; 
+                                    padding: 20px; 
+                                    font-family: 'Courier New', monospace; 
+                                }
+                                .receipt-thermal {
+                                    font-family: 'Courier New', monospace;
+                                    font-size: 14px;
+                                    line-height: 1.3;
+                                    width: 300px;
+                                    margin: 0 auto;
+                                    background: white;
+                                    color: black;
+                                    padding: 10px;
+                                    text-align: center;
+                                }
+                                .receipt-thermal .header {
+                                    font-weight: bold;
+                                    font-size: 16px;
+                                    margin-bottom: 5px;
+                                }
+                                .receipt-thermal .line {
+                                    border-bottom: 1px dashed #000;
+                                    margin: 8px 0;
+                                }
+                                .receipt-thermal .row {
+                                    display: flex;
+                                    justify-content: space-between;
+                                    margin: 3px 0;
+                                }
+                                .receipt-thermal .center {
+                                    text-align: center;
+                                    font-weight: bold;
+                                }
+                                .receipt-thermal .small {
+                                    font-size: 12px;
+                                }
+                                @media print {
+                                    body { margin: 0; padding: 5px; }
+                                    .receipt-thermal { width: 280px; font-size: 12px; }
+                                }
+                            </style>
+                        </head>
+                        <body>
+                            ${recibo}
+                        </body>
+                    </html>
+                `);
+                printWindow.document.close();
+                printWindow.print();
+            };
+
+            overlay.appendChild(popup);
+            document.body.appendChild(overlay);
+
+            // Remover popup ao clicar no overlay
+            overlay.addEventListener('click', function(e) {
+                if (e.target === overlay) {
+                    overlay.remove();
+                }
+            });
+        }
+
+        // ===================================
+        // VALIDAÇÃO BÁSICA
+            if (dados.pagamento === 'ENTRADA-PRÉ') {
+                const valor = parseFloat(dados['valor-pago'].replace(',', '.'));
+                if (valor < 150) {
+                    alert('O valor mínimo da pré-inscrição é R$ 150,00');
+                    isSubmitting = false;
+                    return;
+                }
+            }
+
+            // Preparar dados para Supabase
+            const dadosSupabase = {
+                nome: dados.nome,
+                sexo: dados.sexo,
+                idade: dados.idade,
+                whatsapp: dados.whatsapp,
+                email: dados.email,
+                endereco: dados.endereco,
+                numero: dados.numero,
+                bairro: dados.bairro,
+                cidade: dados.cidade,
+                comorbidade: dados.comorbidade,
+                comorbidadeQual: dados['comorbidade-qual'] || '',
+                gravida: dados.gravida,
+                gravidaObservacao: dados['gravida-observacao'] || '',
+                medicacao: dados.medicacao,
+                medicacaoQual: dados['medicacao-qual'] || '',
+                restricoes: dados.restricoes,
+                restricoesQuais: dados['restricoes-quais'] || '',
+                alergias: dados.alergias,
+                alergiasQuais: dados['alergias-quais'] || '',
+                locomocao: dados.locomocao,
+                locomocaoQual: dados['locomocao-qual'] || '',
+                corRede: dados['cor-rede'],
+                vaiServirReceber: dados['vai-servir-receber'],
+                statusPagamento: dados.pagamento,
+                valorPago: dados['valor-pago'] || '',
+                formaPagamento: dados['forma-pagamento'],
+                autorizacaoImagem: dados['autorizacao-imagem'] ? 'SIM' : 'NÃO'
+            }; básica
             if (dados.pagamento === 'ENTRADA-PRÉ') {
                 const valor = parseFloat(dados['valor-pago'].replace(',', '.'));
                 if (valor < 200) {
@@ -733,26 +1097,8 @@
                 const result = await submitToSupabase(dadosSupabase);
                 
                 if (result.success) {
-                    // Sucesso!
-                    document.getElementById('success-message').style.display = 'block';
-                    
-                    const nextSteps = document.getElementById('next-steps');
-                    const valorPago = dados['valor-pago'] ? parseFloat(dados['valor-pago'].replace(',', '.')) : 0;
-                    const saldoRestante = 520 - valorPago;
-                    
-                    let mensagemCamisa = '';
-                    if (dados.pagamento === 'RETIRO-INTEGRAL') {
-                        mensagemCamisa = '<br><br>🎽 <strong>ATENÇÃO CAMISA:</strong> Você escolheu pagar o valor integral! Se confirmar o pagamento no barracão, concorrerá às 150 primeiras camisas do retiro!';
-                    } else {
-                        mensagemCamisa = '<br><br>🎽 <strong>LEMBRE-SE:</strong> As 150 primeiras pessoas que quitarem o valor total no barracão ganharão a camisa do retiro!';
-                    }
-                    
-                    nextSteps.innerHTML = `
-                        💰 Você informou que pagará R$ ${dados['valor-pago']} como entrada. 
-                        Saldo restante: R$ ${saldoRestante.toFixed(2).replace('.', ',')}. 
-                        Compareça ao barracão para confirmar o pagamento!
-                        ${mensagemCamisa}
-                    `;
+                    // Criar popup de sucesso
+                    criarPopupSucesso(dados);
                     
                     // Reset do formulário
                     this.reset();
@@ -762,10 +1108,8 @@
                     document.getElementById('valor-group').style.display = 'none';
                     
                     // Reset da data display
-                    document.getElementById('date-display').textContent = 'SELECIONE SEU GÊNERO';
+                    document.getElementById('date-display').textContent = 'SELECIONE SEU SEXO';
                     document.getElementById('date-display').style.color = '#ff6b35';
-                    
-                    document.querySelector('.container').scrollIntoView({ behavior: 'smooth' });
 
                 } else {
                     // Erro
@@ -807,6 +1151,7 @@
             if (verificarConfiguracaoSupabase()) {
                 if (initializeSupabase()) {
                     console.log('🎯 Supabase inicializado com sucesso!');
+                    buscarContadorInscricoes();
                 }
             }
         });
@@ -840,9 +1185,14 @@
             
             const dadosTeste = {
                 nome: 'TESTE SISTEMA',
-                genero: 'HOMEM',
+                sexo: 'MASCULINO',
                 idade: 25,
                 whatsapp: '(11) 99999-9999',
+                email: 'teste@teste.com',
+                endereco: 'RUA TESTE',
+                numero: '123',
+                bairro: 'CENTRO',
+                cidade: 'SAO PAULO',
                 comorbidade: 'NÃO',
                 comorbidadeQual: null,
                 gravida: 'NÃO',
@@ -858,8 +1208,9 @@
                 corRede: 'AZUL',
                 vaiServirReceber: 'TRABALHO',
                 statusPagamento: 'ENTRADA-PRÉ',
-                valorPago: '200,00',
-                formaPagamento: 'PIX'
+                valorPago: '150,00',
+                formaPagamento: 'PIX',
+                autorizacaoImagem: 'SIM'
             };
             
             const result = await submitToSupabase(dadosTeste);
@@ -878,6 +1229,52 @@
         console.log('🖼️ Logo configurada - troque o endereço na linha 78!');
         console.log('💡 Para testar a conexão, execute: testarSupabase()');
         console.log('💡 Para testar inserção, execute: testeInscricao()');
+        console.log('');
+        console.log('📋 ESTRUTURA ATUALIZADA DO BANCO (SQL):');
+        console.log(`
+-- Estrutura atualizada da tabela inscricoes
+CREATE TABLE IF NOT EXISTS inscricoes (
+    id SERIAL PRIMARY KEY,
+    nome_completo VARCHAR(255) NOT NULL,
+    sexo VARCHAR(20) NOT NULL CHECK (sexo IN ('MASCULINO', 'FEMININO')),
+    idade INTEGER NOT NULL CHECK (idade >= 12 AND idade <= 100),
+    whatsapp VARCHAR(20) NOT NULL UNIQUE,
+    email VARCHAR(255) NOT NULL,
+    endereco VARCHAR(500) NOT NULL,
+    numero VARCHAR(20) NOT NULL,
+    bairro VARCHAR(100) NOT NULL,
+    cidade VARCHAR(100) NOT NULL,
+    comorbidade VARCHAR(10) NOT NULL CHECK (comorbidade IN ('SIM', 'NÃO')),
+    comorbidade_qual TEXT,
+    gravida VARCHAR(10) NOT NULL CHECK (gravida IN ('SIM', 'NÃO')),
+    gravidez_observacao TEXT,
+    medicacao VARCHAR(10) NOT NULL CHECK (medicacao IN ('SIM', 'NÃO')),
+    medicacao_qual TEXT,
+    restricoes_alimentares VARCHAR(10) NOT NULL CHECK (restricoes_alimentares IN ('SIM', 'NÃO')),
+    restricoes_quais TEXT,
+    alergias VARCHAR(10) NOT NULL CHECK (alergias IN ('SIM', 'NÃO')),
+    alergias_quais TEXT,
+    limitacao_locomocao VARCHAR(10) NOT NULL CHECK (limitacao_locomocao IN ('SIM', 'NÃO')),
+    locomocao_qual TEXT,
+    cor_rede VARCHAR(20) NOT NULL,
+    vai_servir_receber VARCHAR(20) NOT NULL CHECK (vai_servir_receber IN ('TRABALHO', 'ENCONTRISTA')),
+    status_pagamento VARCHAR(50) NOT NULL,
+    valor_pago VARCHAR(20),
+    forma_pagamento VARCHAR(50) NOT NULL,
+    autorizacao_imagem VARCHAR(10) NOT NULL CHECK (autorizacao_imagem IN ('SIM', 'NÃO')),
+    data_inscricao TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+    data_confirmacao_pagamento TIMESTAMP WITH TIME ZONE,
+    status VARCHAR(20) DEFAULT 'ATIVO',
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+    updated_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+);
+
+-- Índices para performance
+CREATE UNIQUE INDEX IF NOT EXISTS idx_whatsapp_unique ON inscricoes (whatsapp);
+CREATE INDEX IF NOT EXISTS idx_sexo ON inscricoes (sexo);
+CREATE INDEX IF NOT EXISTS idx_status ON inscricoes (status);
+CREATE INDEX IF NOT EXISTS idx_data_inscricao ON inscricoes (data_inscricao);
+        `);
     </script>
 </body>
 </html>
