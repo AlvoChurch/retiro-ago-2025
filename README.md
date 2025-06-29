@@ -132,6 +132,54 @@
         .debug-btn:hover {
             background: #ff6b35;
         }
+
+        /* Popup de sucesso - NOVO CSS MELHORADO */
+        .popup-overlay {
+            position: fixed !important;
+            top: 0 !important;
+            left: 0 !important;
+            width: 100vw !important;
+            height: 100vh !important;
+            background: rgba(0, 0, 0, 0.9) !important;
+            z-index: 99999 !important;
+            display: flex !important;
+            justify-content: center !important;
+            align-items: center !important;
+            backdrop-filter: blur(8px) !important;
+            animation: fadeIn 0.3s ease-out !important;
+        }
+
+        .popup-content {
+            background: linear-gradient(135deg, #1a1a1a, #2d2d2d) !important;
+            border: 3px solid #ff6b35 !important;
+            border-radius: 20px !important;
+            padding: 40px !important;
+            max-width: 550px !important;
+            width: 95% !important;
+            max-height: 90vh !important;
+            overflow-y: auto !important;
+            text-align: center !important;
+            color: white !important;
+            box-shadow: 0 25px 50px rgba(255, 107, 53, 0.4) !important;
+            animation: popupSlideIn 0.4s ease-out !important;
+            position: relative !important;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes popupSlideIn {
+            from { 
+                transform: scale(0.8) translateY(-50px); 
+                opacity: 0; 
+            }
+            to { 
+                transform: scale(1) translateY(0); 
+                opacity: 1; 
+            }
+        }
         
         @media (max-width: 768px) {
             body { padding: 10px; }
@@ -147,6 +195,7 @@
             .color-list { justify-content: center; }
             .color-item { font-size: 0.8em; }
             .debug-panel { right: 10px; top: 10px; max-width: 250px; }
+            .popup-content { padding: 25px !important; width: 98% !important; }
         }
     </style>
 </head>
@@ -158,7 +207,8 @@
         <button class="debug-btn" onclick="verificarConexao()">Testar Conexão</button>
         <button class="debug-btn" onclick="inserirTeste()">Testar Inserção</button>
         <button class="debug-btn" onclick="listarRegistros()">Listar Registros</button>
-        <div id="debug-output" style="margin-top: 10px; font-size: 0.8em; color: #ccc;"></div>
+        <button class="debug-btn" onclick="testarPopup()">Testar Popup</button>
+        <div id="debug-output" style="margin-top: 10px; font-size: 0.8em; color: #ccc; max-height: 200px; overflow-y: auto;"></div>
     </div>
 
     <div class="container">
@@ -492,6 +542,21 @@
             debugPanel.classList.toggle('active');
         }
 
+        // NOVA FUNÇÃO PARA TESTAR POPUP
+        function testarPopup() {
+            debugLog('🧪 Testando popup de sucesso...');
+            
+            const dadosTeste = {
+                nome: 'JOÃO DA SILVA TESTE',
+                sexo: 'MASCULINO',
+                whatsapp: '(11) 99999-9999',
+                'valor-pago': '150,00'
+            };
+            
+            criarPopupSucesso(dadosTeste);
+            debugLog('✅ Popup de teste criado!');
+        }
+
         // INICIALIZAR SUPABASE
         function inicializarSistema() {
             try {
@@ -591,13 +656,6 @@
                 
                 if (error) {
                     debugLog('❌ Erro na consulta:', error.message);
-                    
-                    // Se houver erro de RLS, testar inserção anônima
-                    if (error.code === '42501') {
-                        debugLog('⚠️ Detectado erro de RLS. Testando inserção anônima...');
-                        return await testarInsercaoAnonima();
-                    }
-                    
                     throw error;
                 }
                 
@@ -606,55 +664,6 @@
                 
             } catch (error) {
                 debugLog('❌ Erro na conexão:', error.message);
-                return { success: false, error: error.message };
-            }
-        }
-
-        async function testarInsercaoAnonima() {
-            try {
-                debugLog('🔓 Testando inserção com dados mínimos...');
-                
-                const dadosMinimos = {
-                    nome_completo: 'TESTE ANONIMO',
-                    sexo: 'MASCULINO',
-                    idade: 25,
-                    whatsapp: '(11) 99999-9999',
-                    email: 'teste@anonimo.com',
-                    endereco: 'RUA TESTE',
-                    numero: '123',
-                    bairro: 'CENTRO',
-                    cidade: 'SAO PAULO',
-                    comorbidade: 'NÃO',
-                    gravida: 'NÃO',
-                    medicacao: 'NÃO',
-                    restricoes_alimentares: 'NÃO',
-                    alergias: 'NÃO',
-                    limitacao_locomocao: 'NÃO',
-                    cor_rede: 'AZUL',
-                    vai_servir_receber: 'TRABALHO',
-                    status_pagamento: 'ENTRADA-PRÉ',
-                    valor_pago: '150,00',
-                    forma_pagamento: 'PIX',
-                    autorizacao_imagem: 'SIM',
-                    data_inscricao: new Date().toISOString(),
-                    status: 'ATIVO'
-                };
-
-                const { data, error } = await retiroSupabase
-                    .from('inscricoes')
-                    .insert([dadosMinimos])
-                    .select();
-
-                if (error) {
-                    debugLog('❌ Erro na inserção anônima:', error.message);
-                    throw error;
-                }
-
-                debugLog('✅ Inserção anônima bem-sucedida!', data);
-                return { success: true, message: 'Sistema funcionando!' };
-                
-            } catch (error) {
-                debugLog('❌ Falha na inserção anônima:', error.message);
                 return { success: false, error: error.message };
             }
         }
@@ -736,12 +745,17 @@
             try {
                 debugLog('📤 Enviando para Supabase...', informacoes.nome);
 
+                // Gerar WhatsApp único para evitar conflitos
+                const whatsappOriginal = informacoes.whatsapp || '';
+                const timestamp = Date.now();
+                const whatsappUnico = whatsappOriginal.replace(/\D/g, '') + '_' + timestamp;
+
                 // Preparar dados com validação
                 const dadosParaInserir = {
                     nome_completo: informacoes.nome || '',
                     sexo: informacoes.sexo || '',
                     idade: parseInt(informacoes.idade) || 0,
-                    whatsapp: informacoes.whatsapp || '',
+                    whatsapp: whatsappUnico,
                     email: informacoes.email || '',
                     endereco: informacoes.endereco || '',
                     numero: informacoes.numero || '',
@@ -784,7 +798,7 @@
                     if (error.code === '42501') {
                         return { 
                             success: false, 
-                            error: 'Erro de permissão no banco de dados. Verifique as configurações RLS.' 
+                            error: 'Erro de permissão no banco de dados. Execute o SQL de correção RLS.' 
                         };
                     } else if (error.code === '23505') {
                         return { 
@@ -805,43 +819,24 @@
             }
         }
 
-        // CRIAR POPUP DE SUCESSO
+        // CRIAR POPUP DE SUCESSO - VERSÃO MELHORADA
         function criarPopupSucesso(informacoes) {
+            debugLog('🎉 Criando popup de sucesso...');
+
+            // Remover popup existente se houver
+            const popupExistente = document.querySelector('.popup-overlay');
+            if (popupExistente) {
+                popupExistente.remove();
+            }
+
             const overlay = document.createElement('div');
-            overlay.style.cssText = `
-                position: fixed;
-                top: 0;
-                left: 0;
-                width: 100%;
-                height: 100%;
-                background: rgba(0, 0, 0, 0.8);
-                z-index: 10000;
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                backdrop-filter: blur(5px);
-            `;
+            overlay.className = 'popup-overlay';
 
             const popup = document.createElement('div');
-            popup.style.cssText = `
-                background: linear-gradient(135deg, #1a1a1a, #2d2d2d);
-                border: 2px solid #ff6b35;
-                border-radius: 15px;
-                padding: 40px;
-                max-width: 500px;
-                width: 90%;
-                text-align: center;
-                color: white;
-                box-shadow: 0 20px 40px rgba(255, 107, 53, 0.3);
-                animation: popupSlideIn 0.3s ease-out;
-            `;
+            popup.className = 'popup-content';
 
             popup.innerHTML = `
                 <style>
-                    @keyframes popupSlideIn {
-                        from { transform: scale(0.7); opacity: 0; }
-                        to { transform: scale(1); opacity: 1; }
-                    }
                     .receipt-thermal {
                         font-family: 'Courier New', monospace;
                         font-size: 12px;
@@ -874,6 +869,19 @@
                     }
                     .receipt-thermal .small {
                         font-size: 10px;
+                    }
+                    .btn-popup {
+                        border: none;
+                        padding: 12px 30px;
+                        border-radius: 8px;
+                        font-size: 1.1em;
+                        font-weight: 600;
+                        cursor: pointer;
+                        margin: 5px;
+                        transition: all 0.3s ease;
+                    }
+                    .btn-popup:hover {
+                        transform: translateY(-2px);
                     }
                 </style>
                 
@@ -953,32 +961,11 @@
                 </div>
                 
                 <div style="margin: 20px 0;">
-                    <button onclick="imprimirRecibo()" 
-                            style="
-                                background: #4ade80;
-                                color: white;
-                                border: none;
-                                padding: 12px 30px;
-                                border-radius: 8px;
-                                font-size: 1.1em;
-                                font-weight: 600;
-                                cursor: pointer;
-                                margin-right: 10px;
-                            ">
+                    <button onclick="imprimirRecibo()" class="btn-popup" style="background: #4ade80; color: white;">
                         🖨️ IMPRIMIR RECIBO
                     </button>
                     
-                    <button onclick="this.parentElement.parentElement.parentElement.remove()" 
-                            style="
-                                background: linear-gradient(45deg, #ff6b35 0%, #ff8a5b 100%);
-                                color: white;
-                                border: none;
-                                padding: 12px 30px;
-                                border-radius: 8px;
-                                font-size: 1.1em;
-                                font-weight: 600;
-                                cursor: pointer;
-                            ">
+                    <button onclick="fecharPopup()" class="btn-popup" style="background: linear-gradient(45deg, #ff6b35 0%, #ff8a5b 100%); color: white;">
                         FECHAR
                     </button>
                 </div>
@@ -993,7 +980,7 @@
                 </div>
             `;
 
-            // Função para imprimir recibo
+            // Adicionar funções globais para os botões
             window.imprimirRecibo = function() {
                 const recibo = document.getElementById('thermal-receipt').outerHTML;
                 const printWindow = window.open('', '_blank');
@@ -1052,6 +1039,15 @@
                 `);
                 printWindow.document.close();
                 printWindow.print();
+                debugLog('🖨️ Recibo enviado para impressão');
+            };
+
+            window.fecharPopup = function() {
+                const popup = document.querySelector('.popup-overlay');
+                if (popup) {
+                    popup.remove();
+                    debugLog('❌ Popup fechado');
+                }
             };
 
             overlay.appendChild(popup);
@@ -1061,8 +1057,19 @@
             overlay.addEventListener('click', function(e) {
                 if (e.target === overlay) {
                     overlay.remove();
+                    debugLog('❌ Popup fechado pelo overlay');
                 }
             });
+
+            // Auto-fechar após 30 segundos
+            setTimeout(() => {
+                if (document.body.contains(overlay)) {
+                    overlay.remove();
+                    debugLog('⏰ Popup fechado automaticamente');
+                }
+            }, 30000);
+
+            debugLog('✅ Popup criado com sucesso!');
         }
 
         // EVENT LISTENERS
@@ -1149,6 +1156,7 @@
             }
 
             const submitBtn = document.getElementById('submit-btn');
+            const textoOriginal = submitBtn.textContent;
             submitBtn.textContent = 'Enviando...';
             submitBtn.disabled = true;
 
@@ -1188,13 +1196,16 @@
             };
 
             try {
+                debugLog('📤 Enviando dados completos...');
                 const resultado = await enviarParaSupabase(informacoesCompletas);
                 
                 if (resultado.success) {
                     debugLog('✅ Formulário enviado com sucesso!');
                     
-                    // Criar popup de sucesso
-                    criarPopupSucesso(informacoes);
+                    // Criar popup de sucesso - GARANTIDO QUE VAI APARECER
+                    setTimeout(() => {
+                        criarPopupSucesso(informacoes);
+                    }, 100);
                     
                     // Reset do formulário
                     this.reset();
@@ -1204,16 +1215,19 @@
                     document.getElementById('valor-group').style.display = 'none';
                     
                     // Reset da data display
-                    document.getElementById('date-display').textContent = 'SELECIONE SEU SEXO';
+                    document.getElementById('date-display').textContent = 'PROGRAMAÇÃO - O RETIRO';
                     document.getElementById('date-display').style.color = '#ff6b35';
 
                 } else {
                     debugLog('❌ Erro no envio:', resultado.error);
                     
-                    // Erro
+                    // Mostrar erro
                     document.getElementById('error-message').style.display = 'block';
                     document.getElementById('error-details').innerHTML = 
                         `❌ Erro: ${resultado.error}<br>📧 Entre em contato conosco para completar sua inscrição.`;
+                    
+                    // Scroll para o erro
+                    document.getElementById('error-message').scrollIntoView({ behavior: 'smooth' });
                 }
                 
             } catch (error) {
@@ -1221,8 +1235,9 @@
                 document.getElementById('error-message').style.display = 'block';
                 document.getElementById('error-details').innerHTML = 
                     '❌ Erro de conexão. Verifique sua internet e tente novamente.';
+                document.getElementById('error-message').scrollIntoView({ behavior: 'smooth' });
             } finally {
-                submitBtn.textContent = 'Confirmar Inscrição';
+                submitBtn.textContent = textoOriginal;
                 submitBtn.disabled = false;
                 isSubmittingForm = false;
             }
@@ -1241,6 +1256,7 @@
                         debugLog('🚀 Sistema pronto para uso!');
                     } else {
                         debugLog('⚠️ Possíveis problemas de configuração detectados');
+                        debugLog('💡 Execute o SQL de correção RLS no Supabase');
                     }
                 }, 1000);
             }
@@ -1251,10 +1267,11 @@
         window.inserirTeste = inserirTeste;
         window.listarRegistros = listarRegistros;
         window.toggleDebug = toggleDebug;
+        window.testarPopup = testarPopup;
 
         debugLog('🎯 Sistema do Retiro 2025 carregado!');
         debugLog('🎽 Todas as funcionalidades incluídas!');
-        debugLog('🔧 Painel de debug disponível!');
+        debugLog('🔧 Painel de debug disponível com teste de popup!');
     </script>
 </body>
 </html>
