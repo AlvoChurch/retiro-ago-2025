@@ -81,8 +81,6 @@
         .section-title { color: #ff6b35; font-size: 1.3em; font-weight: bold; margin: 30px 0 20px 0; padding-bottom: 10px; border-bottom: 2px solid #333; }
         .form-group { margin-bottom: 25px; }
         .conditional-field { margin-top: 15px; padding-left: 20px; border-left: 3px solid #ff6b35; display: none; }
-        #gravida-group { margin-bottom: 25px; }
-        #gravida-group.show { display: block !important; }
         label { display: block; margin-bottom: 8px; font-weight: 600; color: #fff; font-size: 1.1em; }
         .required { color: #ff6b35; }
         input, select, textarea { width: 100%; padding: 15px; border: 2px solid #333; border-radius: 8px; font-size: 16px; transition: all 0.3s ease; background: #222; color: #fff; text-transform: uppercase; }
@@ -276,9 +274,9 @@
                     </div>
                 </div>
 
-                <div class="form-group" id="gravida-group" style="display: none;">
+                <div class="form-group">
                     <label for="gravida">Está grávida? <span class="required">*</span></label>
-                    <select id="gravida" name="gravida">
+                    <select id="gravida" name="gravida" required>
                         <option value="">Selecione uma opção</option>
                         <option value="NÃO">❌ Não</option>
                         <option value="SIM">✅ Sim</option>
@@ -679,31 +677,8 @@
         setupConditionalField('alergias', 'alergias-detalhes');
         setupConditionalField('locomocao', 'locomocao-detalhes');
 
-        // IMPORTANTE: Configurar a lógica de exibição do campo grávida APÓS configurar os event listeners
-        document.getElementById('sexo').addEventListener('change', function() {
-            atualizarDataRetiro();
-            // Forçar atualização da exibição do campo grávida
-            setTimeout(() => {
-                const sexo = document.getElementById('sexo').value;
-                const gravidaGroup = document.getElementById('gravida-group');
-                const gravidaSelect = document.getElementById('gravida');
-                
-                console.log('Sexo selecionado:', sexo); // Debug
-                
-                if (sexo === 'FEMININO') {
-                    gravidaGroup.style.display = 'block';
-                    gravidaGroup.classList.add('show');
-                    gravidaSelect.required = true;
-                    console.log('Mostrando campo grávida'); // Debug
-                } else {
-                    gravidaGroup.style.display = 'none';
-                    gravidaGroup.classList.remove('show');
-                    gravidaSelect.required = false;
-                    gravidaSelect.value = '';
-                    console.log('Ocultando campo grávida'); // Debug
-                }
-            }, 100);
-        });
+        // Configurar mudança de sexo para atualizar datas
+        document.getElementById('sexo').addEventListener('change', atualizarDataRetiro);
 
         // Configurar pagamento
         document.getElementById('pagamento').addEventListener('change', function() {
@@ -1144,7 +1119,7 @@
                         `❌ Erro: ${result.error}<br>📧 Seus dados foram salvos. Entraremos em contato via WhatsApp.`;
                     
                     // Salvar dados localmente para backup
-                    console.log('💾 Backup dos dados:', dadosSupabase);
+                    console.log('💾 Backup dos dados:', dadosParaSupabase);
                 }
                 
             } catch (error) {
