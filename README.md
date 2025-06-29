@@ -1177,7 +1177,7 @@
         window.testeInscricao = async function() {
             console.log('🧪 Testando inserção...');
             
-            const dadosTesteSistema = {
+            const dadosTesteCompleto = {
                 nome: 'TESTE SISTEMA',
                 sexo: 'MASCULINO',
                 idade: 25,
@@ -1207,14 +1207,14 @@
                 autorizacaoImagem: 'SIM'
             };
             
-            const resultado = await submitToSupabase(dadosTesteSistema);
+            const resultadoTeste = await submitToSupabase(dadosTesteCompleto);
             
-            if (resultado.success) {
+            if (resultadoTeste.success) {
                 console.log('✅ Teste de inserção OK!');
                 alert('✅ Teste de inserção funcionando!');
             } else {
-                console.error('❌ Erro no teste:', resultado.error);
-                alert('❌ Erro no teste: ' + resultado.error);
+                console.error('❌ Erro no teste:', resultadoTeste.error);
+                alert('❌ Erro no teste: ' + resultadoTeste.error);
             }
         };
 
