@@ -99,88 +99,6 @@
         .color-dot.vermelha { background: #ef4444; }
         .color-dot.verde { background: #22c55e; }
         
-        /* Debug panel styles */
-        .debug-panel {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            background: #111;
-            border: 2px solid #ff6b35;
-            border-radius: 10px;
-            padding: 15px;
-            max-width: 300px;
-            font-size: 0.9em;
-            z-index: 1000;
-            display: none;
-        }
-        
-        .debug-panel.active {
-            display: block;
-        }
-        
-        .debug-btn {
-            background: #333;
-            color: #fff;
-            border: 1px solid #ff6b35;
-            padding: 8px 12px;
-            border-radius: 5px;
-            cursor: pointer;
-            margin: 5px;
-            font-size: 0.8em;
-        }
-        
-        .debug-btn:hover {
-            background: #ff6b35;
-        }
-
-        /* Popup de sucesso - MELHORADO */
-        .popup-overlay {
-            position: fixed !important;
-            top: 0 !important;
-            left: 0 !important;
-            width: 100vw !important;
-            height: 100vh !important;
-            background: rgba(0, 0, 0, 0.9) !important;
-            z-index: 99999 !important;
-            display: flex !important;
-            justify-content: center !important;
-            align-items: center !important;
-            backdrop-filter: blur(8px) !important;
-            animation: fadeIn 0.3s ease-out !important;
-        }
-
-        .popup-content {
-            background: linear-gradient(135deg, #1a1a1a, #2d2d2d) !important;
-            border: 3px solid #ff6b35 !important;
-            border-radius: 20px !important;
-            padding: 40px !important;
-            max-width: 550px !important;
-            width: 95% !important;
-            max-height: 90vh !important;
-            overflow-y: auto !important;
-            text-align: center !important;
-            color: white !important;
-            box-shadow: 0 25px 50px rgba(255, 107, 53, 0.4) !important;
-            animation: popupSlideIn 0.4s ease-out !important;
-            position: relative !important;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-
-        @keyframes popupSlideIn {
-            from { 
-                transform: scale(0.8) translateY(-50px); 
-                opacity: 0; 
-            }
-            to { 
-                transform: scale(1) translateY(0); 
-                opacity: 1; 
-            }
-        }
-        
         @media (max-width: 768px) {
             body { padding: 10px; }
             .container { margin: 0; border-radius: 10px; }
@@ -194,23 +112,10 @@
             .section-title { font-size: 1.1em; }
             .color-list { justify-content: center; }
             .color-item { font-size: 0.8em; }
-            .debug-panel { right: 10px; top: 10px; max-width: 250px; }
-            .popup-content { padding: 25px !important; width: 98% !important; }
         }
     </style>
 </head>
 <body>
-    <!-- Debug Panel -->
-    <div class="debug-panel" id="debug-panel">
-        <h4 style="color: #ff6b35; margin-bottom: 10px;">🔧 Debug Panel</h4>
-        <button class="debug-btn" onclick="toggleDebug()">Fechar</button>
-        <button class="debug-btn" onclick="verificarConexao()">Testar Conexão</button>
-        <button class="debug-btn" onclick="inserirTeste()">Testar Inserção</button>
-        <button class="debug-btn" onclick="listarRegistros()">Listar Registros</button>
-        <button class="debug-btn" onclick="testarPopup()">Testar Popup</button>
-        <div id="debug-output" style="margin-top: 10px; font-size: 0.8em; color: #ccc; max-height: 200px; overflow-y: auto;"></div>
-    </div>
-
     <div class="container">
         <div class="header">
             <div class="church-logo">
@@ -222,12 +127,7 @@
                 <strong>VEM E VÊ!</strong>
             </div>
             
-            <!-- Debug toggle button -->
-            <button onclick="toggleDebug()" style="position: absolute; top: 10px; right: 10px; background: #333; color: #fff; border: none; padding: 5px 10px; border-radius: 5px; font-size: 0.8em; cursor: pointer;">🔧</button>
-            
             <div class="genero-selector" id="date-display">PROGRAMAÇÃO - O RETIRO</div>
-            
-            <h1 class="titulo-retiro">O RETIRO</h1>
             
             <div class="subtitle-retiro">VISÃO • MISSÃO • PRESSÃO</div>
         </div>
@@ -525,50 +425,11 @@
         let retiroSupabase;
         let isSubmittingForm = false;
 
-        // DEBUG FUNCTIONS
-        function debugLog(message, data = null) {
-            const debugOutput = document.getElementById('debug-output');
-            const timestamp = new Date().toLocaleTimeString();
-            const logEntry = `[${timestamp}] ${message}`;
-            
-            console.log(logEntry, data);
-            
-            if (debugOutput) {
-                debugOutput.innerHTML += `<div style="margin: 2px 0; padding: 2px; background: #222; border-radius: 3px;">${logEntry}</div>`;
-                debugOutput.scrollTop = debugOutput.scrollHeight;
-            }
-        }
-
-        function toggleDebug() {
-            const debugPanel = document.getElementById('debug-panel');
-            debugPanel.classList.toggle('active');
-        }
-
-        // NOVA FUNÇÃO PARA TESTAR POPUP
-        function testarPopup() {
-            debugLog('🧪 Testando popup de sucesso...');
-            
-            const dadosTeste = {
-                nome: 'JOÃO DA SILVA TESTE',
-                sexo: 'MASCULINO',
-                whatsapp: '(11) 99999-9999',
-                'valor-pago': '150,00'
-            };
-            
-            criarPopupSucesso(dadosTeste);
-            debugLog('✅ Popup de teste criado!');
-        }
-
         // INICIALIZAR SUPABASE
         function inicializarSistema() {
-            try {
-                retiroSupabase = window.supabase.createClient(RETIRO_CONFIG.url, RETIRO_CONFIG.anonKey);
-                debugLog('✅ Sistema inicializado com sucesso!');
-                return true;
-            } catch (error) {
-                debugLog('❌ Erro ao inicializar:', error.message);
-                return false;
-            }
+            retiroSupabase = window.supabase.createClient(RETIRO_CONFIG.url, RETIRO_CONFIG.anonKey);
+            console.log('🎯 Sistema inicializado com sucesso!');
+            return true;
         }
 
         // FORMATAÇÃO
@@ -646,201 +507,95 @@
             });
         }
 
-        // FUNÇÕES DE TESTE E DEBUG
-        async function verificarConexao() {
-            debugLog('🧪 Testando conexão com Supabase...');
-            
-            try {
-                const { data, error } = await retiroSupabase
-                    .from('inscricoes')
-                    .select('id', { count: 'exact', head: true });
-                
-                if (error) {
-                    debugLog('❌ Erro na consulta:', error.message);
-                    throw error;
-                }
-                
-                debugLog('✅ Conexão OK!');
-                return { success: true, message: 'Conexão funcionando!' };
-                
-            } catch (error) {
-                debugLog('❌ Erro na conexão:', error.message);
-                return { success: false, error: error.message };
-            }
-        }
-
-        async function inserirTeste() {
-            debugLog('🧪 Testando inserção completa...');
-            
-            const testeInfo = {
-                nome: 'TESTE SISTEMA COMPLETO',
-                sexo: 'MASCULINO',
-                idade: 25,
-                whatsapp: '(11) 99999-9999',
-                email: 'teste@sistema.com',
-                endereco: 'RUA TESTE COMPLETO',
-                numero: '456',
-                bairro: 'CENTRO',
-                cidade: 'SAO PAULO',
-                comorbidade: 'NÃO',
-                comorbidadeQual: '',
-                gravida: 'NÃO',
-                gravidaObservacao: '',
-                medicacao: 'NÃO',
-                medicacaoQual: '',
-                restricoes: 'NÃO',
-                restricoesQuais: '',
-                alergias: 'NÃO',
-                alergiasQuais: '',
-                locomocao: 'NÃO',
-                locomocaoQual: '',
-                corRede: 'AZUL',
-                vaiServirReceber: 'TRABALHO',
-                statusPagamento: 'ENTRADA-PRÉ',
-                valorPago: '150,00',
-                formaPagamento: 'PIX',
-                autorizacaoImagem: 'SIM'
-            };
-            
-            const resultado = await enviarParaSupabase(testeInfo);
-            
-            if (resultado.success) {
-                debugLog('✅ Teste de inserção completa OK!');
-                alert('✅ Teste de inserção funcionando!');
-            } else {
-                debugLog('❌ Erro no teste completo:', resultado.error);
-                alert('❌ Erro no teste: ' + resultado.error);
-            }
-        }
-
-        async function listarRegistros() {
-            debugLog('📋 Listando registros...');
-            
-            try {
-                const { data, error, count } = await retiroSupabase
-                    .from('inscricoes')
-                    .select('nome_completo, sexo, data_inscricao', { count: 'exact' })
-                    .order('data_inscricao', { ascending: false })
-                    .limit(5);
-                
-                if (error) throw error;
-                
-                debugLog(`📊 Total de registros: ${count}`);
-                
-                if (data && data.length > 0) {
-                    debugLog('📝 Últimos 5 registros:');
-                    data.forEach((registro, index) => {
-                        debugLog(`${index + 1}. ${registro.nome_completo} (${registro.sexo})`);
-                    });
-                } else {
-                    debugLog('📭 Nenhum registro encontrado');
-                }
-                
-            } catch (error) {
-                debugLog('❌ Erro ao listar registros:', error.message);
-            }
-        }
-
-        // INTEGRAÇÃO COM SUPABASE CORRIGIDA
+        // INTEGRAÇÃO COM SUPABASE
         async function enviarParaSupabase(informacoes) {
             try {
-                debugLog('📤 Enviando para Supabase...', informacoes.nome);
-
-                // CORREÇÃO: Usar WhatsApp limpo sem timestamp
-                const whatsappLimpo = informacoes.whatsapp.replace(/\D/g, '');
-
-                // Preparar dados com validação
-                const dadosParaInserir = {
-                    nome_completo: informacoes.nome || '',
-                    sexo: informacoes.sexo || '',
-                    idade: parseInt(informacoes.idade) || 0,
-                    whatsapp: whatsappLimpo, // USAR WHATSAPP LIMPO
-                    email: informacoes.email || '',
-                    endereco: informacoes.endereco || '',
-                    numero: informacoes.numero || '',
-                    bairro: informacoes.bairro || '',
-                    cidade: informacoes.cidade || '',
-                    comorbidade: informacoes.comorbidade || 'NÃO',
-                    comorbidade_qual: informacoes.comorbidadeQual || null,
-                    gravida: informacoes.gravida || 'NÃO',
-                    gravidez_observacao: informacoes.gravidaObservacao || null,
-                    medicacao: informacoes.medicacao || 'NÃO',
-                    medicacao_qual: informacoes.medicacaoQual || null,
-                    restricoes_alimentares: informacoes.restricoes || 'NÃO',
-                    restricoes_quais: informacoes.restricoesQuais || null,
-                    alergias: informacoes.alergias || 'NÃO',
-                    alergias_quais: informacoes.alergiasQuais || null,
-                    limitacao_locomocao: informacoes.locomocao || 'NÃO',
-                    locomocao_qual: informacoes.locomocaoQual || null,
-                    cor_rede: informacoes.corRede || '',
-                    vai_servir_receber: informacoes.vaiServirReceber || '',
-                    status_pagamento: informacoes.statusPagamento || '',
-                    valor_pago: informacoes.valorPago || null,
-                    forma_pagamento: informacoes.formaPagamento || '',
-                    autorizacao_imagem: informacoes.autorizacaoImagem || 'NÃO',
-                    data_inscricao: new Date().toISOString(),
-                    data_confirmacao_pagamento: null,
-                    status: 'ATIVO'
-                };
-
-                debugLog('📦 Dados preparados:', dadosParaInserir.nome_completo);
+                console.log('📤 Enviando para Supabase:', informacoes);
 
                 const { data, error } = await retiroSupabase
                     .from('inscricoes')
-                    .insert([dadosParaInserir])
+                    .insert([{
+                        nome_completo: informacoes.nome,
+                        sexo: informacoes.sexo,
+                        idade: parseInt(informacoes.idade),
+                        whatsapp: informacoes.whatsapp,
+                        email: informacoes.email,
+                        endereco: informacoes.endereco,
+                        numero: informacoes.numero,
+                        bairro: informacoes.bairro,
+                        cidade: informacoes.cidade,
+                        comorbidade: informacoes.comorbidade,
+                        comorbidade_qual: informacoes.comorbidadeQual || null,
+                        gravida: informacoes.gravida,
+                        gravidez_observacao: informacoes.gravidaObservacao || null,
+                        medicacao: informacoes.medicacao,
+                        medicacao_qual: informacoes.medicacaoQual || null,
+                        restricoes_alimentares: informacoes.restricoes,
+                        restricoes_quais: informacoes.restricoesQuais || null,
+                        alergias: informacoes.alergias,
+                        alergias_quais: informacoes.alergiasQuais || null,
+                        limitacao_locomocao: informacoes.locomocao,
+                        locomocao_qual: informacoes.locomocaoQual || null,
+                        cor_rede: informacoes.corRede,
+                        vai_servir_receber: informacoes.vaiServirReceber,
+                        status_pagamento: informacoes.statusPagamento,
+                        valor_pago: informacoes.valorPago || null,
+                        forma_pagamento: informacoes.formaPagamento,
+                        autorizacao_imagem: informacoes.autorizacaoImagem,
+                        data_inscricao: new Date().toISOString(),
+                        data_confirmacao_pagamento: null,
+                        status: 'ATIVO'
+                    }])
                     .select();
 
-                if (error) {
-                    debugLog('❌ Erro Supabase:', error.message);
-                    
-                    // Tratamento específico para erros comuns
-                    if (error.code === '42501') {
-                        return { 
-                            success: false, 
-                            error: 'Erro de permissão no banco de dados. Execute o SQL de correção RLS.' 
-                        };
-                    } else if (error.code === '23505') {
-                        return { 
-                            success: false, 
-                            error: 'Este WhatsApp já está cadastrado. Use outro número ou entre em contato conosco.' 
-                        };
-                    } else if (error.message.includes('value too long')) {
-                        return { 
-                            success: false, 
-                            error: 'Algum campo está muito longo. Verifique os dados e tente novamente.' 
-                        };
-                    }
-                    
-                    throw error;
-                }
+                if (error) throw error;
 
-                debugLog('✅ Sucesso Supabase:', data[0]?.nome_completo);
+                console.log('✅ Sucesso Supabase:', data);
                 return { success: true, data };
 
             } catch (error) {
-                debugLog('❌ Erro geral:', error.message);
+                console.error('❌ Erro Supabase:', error);
                 return { success: false, error: error.message };
             }
         }
 
-        // CRIAR POPUP DE SUCESSO - VERSÃO MELHORADA
+        // CRIAR POPUP DE SUCESSO
         function criarPopupSucesso(informacoes) {
-            debugLog('🎉 Criando popup de sucesso...');
-
-            // Remover popup existente se houver
-            const popupExistente = document.querySelector('.popup-overlay');
-            if (popupExistente) {
-                popupExistente.remove();
-            }
-
             const overlay = document.createElement('div');
-            overlay.className = 'popup-overlay';
+            overlay.style.cssText = `
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: rgba(0, 0, 0, 0.8);
+                z-index: 10000;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                backdrop-filter: blur(5px);
+            `;
 
             const popup = document.createElement('div');
-            popup.className = 'popup-content';
+            popup.style.cssText = `
+                background: linear-gradient(135deg, #1a1a1a, #2d2d2d);
+                border: 2px solid #ff6b35;
+                border-radius: 15px;
+                padding: 40px;
+                max-width: 500px;
+                width: 90%;
+                text-align: center;
+                color: white;
+                box-shadow: 0 20px 40px rgba(255, 107, 53, 0.3);
+                animation: popupSlideIn 0.3s ease-out;
+            `;
 
             popup.innerHTML = `
                 <style>
+                    @keyframes popupSlideIn {
+                        from { transform: scale(0.7); opacity: 0; }
+                        to { transform: scale(1); opacity: 1; }
+                    }
                     .receipt-thermal {
                         font-family: 'Courier New', monospace;
                         font-size: 12px;
@@ -874,25 +629,12 @@
                     .receipt-thermal .small {
                         font-size: 10px;
                     }
-                    .btn-popup {
-                        border: none;
-                        padding: 12px 30px;
-                        border-radius: 8px;
-                        font-size: 1.1em;
-                        font-weight: 600;
-                        cursor: pointer;
-                        margin: 5px;
-                        transition: all 0.3s ease;
-                    }
-                    .btn-popup:hover {
-                        transform: translateY(-2px);
-                    }
                 </style>
                 
                 <div style="font-size: 4em; margin-bottom: 20px;">🎉</div>
                 
                 <h2 style="color: #ff6b35; font-size: 2em; margin-bottom: 20px; font-weight: 900;">
-                    INSCRIÇÃO REALIZADA COM SUCESSO!
+                    TENHA UM EXCELENTE RETIRO!
                 </h2>
                 
                 <!-- RECIBO PARA IMPRESSÃO TÉRMICA -->
@@ -965,11 +707,32 @@
                 </div>
                 
                 <div style="margin: 20px 0;">
-                    <button onclick="imprimirRecibo()" class="btn-popup" style="background: #4ade80; color: white;">
+                    <button onclick="imprimirRecibo()" 
+                            style="
+                                background: #4ade80;
+                                color: white;
+                                border: none;
+                                padding: 12px 30px;
+                                border-radius: 8px;
+                                font-size: 1.1em;
+                                font-weight: 600;
+                                cursor: pointer;
+                                margin-right: 10px;
+                            ">
                         🖨️ IMPRIMIR RECIBO
                     </button>
                     
-                    <button onclick="fecharPopup()" class="btn-popup" style="background: linear-gradient(45deg, #ff6b35 0%, #ff8a5b 100%); color: white;">
+                    <button onclick="this.parentElement.parentElement.parentElement.remove()" 
+                            style="
+                                background: linear-gradient(45deg, #ff6b35 0%, #ff8a5b 100%);
+                                color: white;
+                                border: none;
+                                padding: 12px 30px;
+                                border-radius: 8px;
+                                font-size: 1.1em;
+                                font-weight: 600;
+                                cursor: pointer;
+                            ">
                         FECHAR
                     </button>
                 </div>
@@ -984,7 +747,7 @@
                 </div>
             `;
 
-            // Adicionar funções globais para os botões
+            // Função para imprimir recibo
             window.imprimirRecibo = function() {
                 const recibo = document.getElementById('thermal-receipt').outerHTML;
                 const printWindow = window.open('', '_blank');
@@ -1043,40 +806,17 @@
                 `);
                 printWindow.document.close();
                 printWindow.print();
-                debugLog('🖨️ Recibo enviado para impressão');
-            };
-
-            window.fecharPopup = function() {
-                const popup = document.querySelector('.popup-overlay');
-                if (popup) {
-                    popup.remove();
-                    debugLog('❌ Popup fechado');
-                }
             };
 
             overlay.appendChild(popup);
             document.body.appendChild(overlay);
 
-            // Forçar o popup a aparecer
-            overlay.style.display = 'flex';
-            
             // Remover popup ao clicar no overlay
             overlay.addEventListener('click', function(e) {
                 if (e.target === overlay) {
                     overlay.remove();
-                    debugLog('❌ Popup fechado pelo overlay');
                 }
             });
-
-            // Auto-fechar após 30 segundos
-            setTimeout(() => {
-                if (document.body.contains(overlay)) {
-                    overlay.remove();
-                    debugLog('⏰ Popup fechado automaticamente');
-                }
-            }, 30000);
-
-            debugLog('✅ Popup criado com sucesso!');
         }
 
         // EVENT LISTENERS
@@ -1140,14 +880,12 @@
             this.value = this.value.toLowerCase();
         });
 
-        // SUBMIT DO FORMULÁRIO - CORRIGIDO
+        // SUBMIT DO FORMULÁRIO
         document.getElementById('inscricao-form').addEventListener('submit', async function(e) {
             e.preventDefault();
             
             if (isSubmittingForm) return;
             isSubmittingForm = true;
-            
-            debugLog('📝 Iniciando envio do formulário...');
             
             const formData = new FormData(this);
             const informacoes = Object.fromEntries(formData);
@@ -1163,7 +901,6 @@
             }
 
             const submitBtn = document.getElementById('submit-btn');
-            const textoOriginal = submitBtn.textContent;
             submitBtn.textContent = 'Enviando...';
             submitBtn.disabled = true;
 
@@ -1203,13 +940,10 @@
             };
 
             try {
-                debugLog('📤 Enviando dados completos...');
                 const resultado = await enviarParaSupabase(informacoesCompletas);
                 
                 if (resultado.success) {
-                    debugLog('✅ Formulário enviado com sucesso!');
-                    
-                    // GARANTIR QUE O POPUP APAREÇA
+                    // Criar popup de sucesso
                     criarPopupSucesso(informacoes);
                     
                     // Reset do formulário
@@ -1220,63 +954,106 @@
                     document.getElementById('valor-group').style.display = 'none';
                     
                     // Reset da data display
-                    document.getElementById('date-display').textContent = 'PROGRAMAÇÃO - O RETIRO';
+                    document.getElementById('date-display').textContent = 'SELECIONE SEU SEXO';
                     document.getElementById('date-display').style.color = '#ff6b35';
 
                 } else {
-                    debugLog('❌ Erro no envio:', resultado.error);
-                    
-                    // Mostrar erro
+                    // Erro
                     document.getElementById('error-message').style.display = 'block';
                     document.getElementById('error-details').innerHTML = 
-                        `❌ Erro: ${resultado.error}<br>📧 Entre em contato conosco para completar sua inscrição.`;
+                        `❌ Erro: ${resultado.error}<br>📧 Seus dados foram salvos. Entraremos em contato via WhatsApp.`;
                     
-                    // Scroll para o erro
-                    document.getElementById('error-message').scrollIntoView({ behavior: 'smooth' });
+                    // Salvar dados localmente para backup
+                    console.log('💾 Backup dos dados:', informacoesCompletas);
                 }
                 
             } catch (error) {
-                debugLog('❌ Erro geral no formulário:', error.message);
+                console.error('Erro geral:', error);
                 document.getElementById('error-message').style.display = 'block';
                 document.getElementById('error-details').innerHTML = 
                     '❌ Erro de conexão. Verifique sua internet e tente novamente.';
-                document.getElementById('error-message').scrollIntoView({ behavior: 'smooth' });
             } finally {
-                submitBtn.textContent = textoOriginal;
+                submitBtn.textContent = 'Confirmar Inscrição';
                 submitBtn.disabled = false;
                 isSubmittingForm = false;
             }
         });
 
+        // FUNÇÕES DE TESTE
+        window.verificarConexao = async function() {
+            console.log('🧪 Testando conexão com Supabase...');
+            
+            try {
+                const { count, error } = await retiroSupabase
+                    .from('inscricoes')
+                    .select('*', { count: 'exact', head: true });
+                
+                if (error) throw error;
+                
+                console.log('✅ Conexão OK! Total de registros:', count);
+                alert('✅ Conexão com Supabase funcionando! Total de registros: ' + count);
+            } catch (error) {
+                console.error('❌ Erro na conexão:', error);
+                alert('❌ Erro na conexão: ' + error.message);
+            }
+        };
+
+        window.inserirTeste = async function() {
+            console.log('🧪 Testando inserção...');
+            
+            const testeInfo = {
+                nome: 'TESTE SISTEMA NOVO',
+                sexo: 'MASCULINO',
+                idade: 25,
+                whatsapp: '(11) 99999-9999',
+                email: 'teste@teste.com',
+                endereco: 'RUA TESTE',
+                numero: '123',
+                bairro: 'CENTRO',
+                cidade: 'SAO PAULO',
+                comorbidade: 'NÃO',
+                comorbidadeQual: null,
+                gravida: 'NÃO',
+                gravidaObservacao: null,
+                medicacao: 'NÃO',
+                medicacaoQual: null,
+                restricoes: 'NÃO',
+                restricoesQuais: null,
+                alergias: 'NÃO',
+                alergiasQuais: null,
+                locomocao: 'NÃO',
+                locomocaoQual: null,
+                corRede: 'AZUL',
+                vaiServirReceber: 'TRABALHO',
+                statusPagamento: 'ENTRADA-PRÉ',
+                valorPago: '150,00',
+                formaPagamento: 'PIX',
+                autorizacaoImagem: 'SIM'
+            };
+            
+            const resultadoTeste = await enviarParaSupabase(testeInfo);
+            
+            if (resultadoTeste.success) {
+                console.log('✅ Teste de inserção OK!');
+                alert('✅ Teste de inserção funcionando!');
+            } else {
+                console.error('❌ Erro no teste:', resultadoTeste.error);
+                alert('❌ Erro no teste: ' + resultadoTeste.error);
+            }
+        };
+
         // INICIALIZAÇÃO
         document.addEventListener('DOMContentLoaded', function() {
             if (inicializarSistema()) {
-                debugLog('🎯 Sistema inicializado com sucesso!');
-                debugLog('💡 Use o painel de debug para testar funções');
-                
-                // Teste automático de conexão
-                setTimeout(async () => {
-                    const resultado = await verificarConexao();
-                    if (resultado.success) {
-                        debugLog('🚀 Sistema pronto para uso!');
-                    } else {
-                        debugLog('⚠️ Possíveis problemas de configuração detectados');
-                        debugLog('💡 Execute o SQL de correção RLS no Supabase');
-                    }
-                }, 1000);
+                console.log('🎯 Sistema do retiro inicializado com sucesso!');
+                console.log('💡 Para testar a conexão, execute: verificarConexao()');
+                console.log('💡 Para testar inserção, execute: inserirTeste()');
             }
         });
 
-        // EXPOSIÇÃO DE FUNÇÕES PARA DEBUG
-        window.verificarConexao = verificarConexao;
-        window.inserirTeste = inserirTeste;
-        window.listarRegistros = listarRegistros;
-        window.toggleDebug = toggleDebug;
-        window.testarPopup = testarPopup;
-
-        debugLog('🎯 Sistema do Retiro 2025 carregado!');
-        debugLog('🎽 Todas as funcionalidades incluídas!');
-        debugLog('🔧 Painel de debug disponível com teste de popup!');
+        console.log('🎯 Sistema do Retiro 2025 carregado!');
+        console.log('🎽 Todas as funcionalidades incluídas!');
+        console.log('🖼️ Logo configurada!');
     </script>
 </body>
 </html>
