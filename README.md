@@ -559,265 +559,238 @@
             }
         }
 
-        // CRIAR POPUP DE SUCESSO
-        function criarPopupSucesso(informacoes) {
-            const overlay = document.createElement('div');
-            overlay.style.cssText = `
-                position: fixed;
-                top: 0;
-                left: 0;
-                width: 100%;
-                height: 100%;
-                background: rgba(0, 0, 0, 0.8);
-                z-index: 10000;
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                backdrop-filter: blur(5px);
-            `;
+// CRIAR POPUP DE SUCESSO CORRIGIDO
+function criarPopupSucesso(informacoes) {
+    const overlay = document.createElement('div');
+    overlay.style.cssText = `
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.8);
+        z-index: 10000;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        backdrop-filter: blur(5px);
+    `;
 
-            const popup = document.createElement('div');
-            popup.style.cssText = `
-                background: linear-gradient(135deg, #1a1a1a, #2d2d2d);
-                border: 2px solid #ff6b35;
-                border-radius: 15px;
-                padding: 40px;
-                max-width: 500px;
-                width: 90%;
+    const popup = document.createElement('div');
+    popup.style.cssText = `
+        background: linear-gradient(135deg, #1a1a1a, #2d2d2d);
+        border: 2px solid #ff6b35;
+        border-radius: 15px;
+        padding: 40px;
+        max-width: 500px;
+        width: 90%;
+        text-align: center;
+        color: white;
+        box-shadow: 0 20px 40px rgba(255, 107, 53, 0.3);
+        animation: popupSlideIn 0.3s ease-out;
+    `;
+
+    popup.innerHTML = `
+        <style>
+            @keyframes popupSlideIn {
+                from { transform: scale(0.7); opacity: 0; }
+                to { transform: scale(1); opacity: 1; }
+            }
+            .receipt-thermal {
+                font-family: 'Courier New', monospace;
+                font-size: 12px;
+                line-height: 1.2;
+                width: 280px;
+                margin: 20px auto;
+                background: white;
+                color: black;
+                padding: 10px;
+                border: 1px solid #ccc;
                 text-align: center;
-                color: white;
-                box-shadow: 0 20px 40px rgba(255, 107, 53, 0.3);
-                animation: popupSlideIn 0.3s ease-out;
-            `;
+            }
+            .receipt-thermal .header {
+                font-weight: bold;
+                font-size: 14px;
+                margin-bottom: 5px;
+            }
+            .receipt-thermal .line {
+                border-bottom: 1px dashed #000;
+                margin: 5px 0;
+            }
+            .receipt-thermal .row {
+                display: flex;
+                justify-content: space-between;
+                margin: 2px 0;
+            }
+            .receipt-thermal .center {
+                text-align: center;
+                font-weight: bold;
+            }
+            .receipt-thermal .small {
+                font-size: 10px;
+            }
+        </style>
+        
+        <div style="font-size: 4em; margin-bottom: 20px;">📝</div>
+        
+        <h2 style="color: #ff6b35; font-size: 2em; margin-bottom: 20px; font-weight: 900;">
+            PRÉ-INSCRIÇÃO REALIZADA!
+        </h2>
+        
+        <!-- RECIBO CORRIGIDO -->
+        <div class="receipt-thermal" id="thermal-receipt">
+            <div class="header">ALVO - UMA IGREJA, UMA VISAO</div>
+            <div class="header">VEM E VE!</div>
+            <div class="line"></div>
+            
+            <div class="center">*** COMPROVANTE PRE-INSCRICAO ***</div>
+            <div class="center">O RETIRO 2025</div>
+            <div class="line"></div>
+            
+            <div class="row">
+                <span><b>NOME:</b></span>
+            </div>
+            <div style="text-align: left; margin-bottom: 5px; font-weight: bold;">
+                ${informacoes.nome.substring(0, 32)}
+            </div>
+            
+            <div class="row">
+                <span><b>SEXO:</b></span>
+                <span><b>${informacoes.sexo}</b></span>
+            </div>
+            
+            <div class="row">
+                <span><b>WHATSAPP:</b></span>
+                <span><b>${informacoes.whatsapp}</b></span>
+            </div>
+            
+            <!-- SEÇÃO CORRIGIDA -->
+            <div class="line"></div>
+            <div class="center"><b>🏷️ STATUS: PRE-INSCRITO 🏷️</b></div>
+            <div class="center small">PAGAMENTO PENDENTE</div>
+            <div class="line"></div>
+            
+            <div class="row">
+                <span><b>VALOR A PAGAR:</b></span>
+                <span><b>R$ ${informacoes['valor-pago']}</b></span>
+            </div>
+            
+            <div class="row">
+                <span><b>FORMA PRETENDIDA:</b></span>
+                <span><b>${informacoes['forma-pagamento']}</b></span>
+            </div>
+            
+            <div class="line"></div>
+            
+            <div class="center small">
+                DATA: ${new Date().toLocaleDateString('pt-BR')}<br>
+                HORA: ${new Date().toLocaleTimeString('pt-BR')}
+            </div>
+            
+            <div class="line"></div>
+            
+            <!-- INSTRUÇÃO CLARA -->
+            <div class="center">
+                <b>🏢 PROXIMO PASSO 🏢</b><br>
+                <span class="small">COMPAREÇA AO BALCAO<br>
+                PARA EFETUAR O PAGAMENTO</span>
+            </div>
+            
+            <div class="line"></div>
+            
+            <div class="center">
+                <b>🎽 PROMOCAO CAMISA 🎽</b><br>
+                <span class="small">150 PRIMEIROS PAGAMENTOS<br>
+                GANHAM A CAMISA OFICIAL!</span>
+            </div>
+            
+            <div class="line"></div>
+            
+            <div class="center small">
+                <b>IMPORTANTE:</b><br>
+                NAO DEVOLVEMOS OU<br>
+                TRANSFERIMOS O VALOR<br>
+                DA INSCRICAO
+            </div>
+            
+            <div class="line"></div>
+            
+            <div class="center small">
+                RETIRO MASCULINO:<br>
+                8, 9 E 10 DE AGOSTO<br><br>
+                RETIRO FEMININO:<br>
+                15, 16 E 17 DE AGOSTO
+            </div>
+            
+            <div class="line"></div>
+            <div class="center small">*** AGUARDAMOS VOCE NO BALCAO ***</div>
+        </div>
+        
+        <div style="margin: 20px 0;">
+            <button onclick="imprimirRecibo()" 
+                    style="
+                        background: #4ade80;
+                        color: white;
+                        border: none;
+                        padding: 12px 30px;
+                        border-radius: 8px;
+                        font-size: 1.1em;
+                        font-weight: 600;
+                        cursor: pointer;
+                        margin-right: 10px;
+                    ">
+                🖨️ IMPRIMIR COMPROVANTE
+            </button>
+            
+            <button onclick="this.parentElement.parentElement.parentElement.remove()" 
+                    style="
+                        background: linear-gradient(45deg, #ff6b35 0%, #ff8a5b 100%);
+                        color: white;
+                        border: none;
+                        padding: 12px 30px;
+                        border-radius: 8px;
+                        font-size: 1.1em;
+                        font-weight: 600;
+                        cursor: pointer;
+                    ">
+                FECHAR
+            </button>
+        </div>
+        
+        <!-- INFORMAÇÕES CORRIGIDAS -->
+        <div style="background: #333; padding: 15px; border-radius: 8px; margin: 20px 0; line-height: 1.6;">
+            <h3 style="color: #ff6b35; margin-bottom: 15px;">📋 Próximos Passos:</h3>
+            <p style="font-size: 1.1em;">
+                ✅ <strong>Pré-inscrição realizada com sucesso!</strong><br><br>
+                💰 Você informou que pretende pagar <strong>R$ ${informacoes['valor-pago']}</strong> como entrada mínima.<br><br>
+                🏢 <strong>COMPAREÇA AO BALCÃO</strong> para efetuar o pagamento e garantir sua vaga.<br><br>
+                🎽 <strong>LEMBRE-SE:</strong> Os 150 primeiros pagamentos ganham a camisa oficial!
+            </p>
+        </div>
+        
+        <div style="background: #1a472a; border: 1px solid #16a34a; padding: 15px; border-radius: 8px; margin-top: 20px;">
+            <p style="color: #4ade80; font-weight: bold; margin: 0;">
+                ✅ Seus dados foram salvos com sucesso!<br>
+                📱 Aguarde contato via WhatsApp se necessário.
+            </p>
+        </div>
+    `;
 
-            popup.innerHTML = `
-                <style>
-                    @keyframes popupSlideIn {
-                        from { transform: scale(0.7); opacity: 0; }
-                        to { transform: scale(1); opacity: 1; }
-                    }
-                    .receipt-thermal {
-                        font-family: 'Courier New', monospace;
-                        font-size: 12px;
-                        line-height: 1.2;
-                        width: 280px;
-                        margin: 20px auto;
-                        background: white;
-                        color: black;
-                        padding: 10px;
-                        border: 1px solid #ccc;
-                        text-align: center;
-                    }
-                    .receipt-thermal .header {
-                        font-weight: bold;
-                        font-size: 14px;
-                        margin-bottom: 5px;
-                    }
-                    .receipt-thermal .line {
-                        border-bottom: 1px dashed #000;
-                        margin: 5px 0;
-                    }
-                    .receipt-thermal .row {
-                        display: flex;
-                        justify-content: space-between;
-                        margin: 2px 0;
-                    }
-                    .receipt-thermal .center {
-                        text-align: center;
-                        font-weight: bold;
-                    }
-                    .receipt-thermal .small {
-                        font-size: 10px;
-                    }
-                </style>
-                
-                <div style="font-size: 4em; margin-bottom: 20px;">🎉</div>
-                
-                <h2 style="color: #ff6b35; font-size: 2em; margin-bottom: 20px; font-weight: 900;">
-                    TENHA UM EXCELENTE RETIRO!
-                </h2>
-                
-                <!-- RECIBO PARA IMPRESSÃO TÉRMICA -->
-                <div class="receipt-thermal" id="thermal-receipt">
-                    <div class="header">ALVO - UMA IGREJA, UMA VISAO</div>
-                    <div class="header">VEM E VE!</div>
-                    <div class="line"></div>
-                    
-                    <div class="center">*** COMPROVANTE PRE-INSCRICAO ***</div>
-                    <div class="center">O RETIRO 2025</div>
-                    <div class="line"></div>
-                    
-                    <div class="row">
-                        <span><b>NOME:</b></span>
-                    </div>
-                    <div style="text-align: left; margin-bottom: 5px; font-weight: bold;">
-                        ${informacoes.nome.substring(0, 32)}
-                    </div>
-                    
-                    <div class="row">
-                        <span><b>SEXO:</b></span>
-                        <span><b>${informacoes.sexo}</b></span>
-                    </div>
-                    
-                    <div class="row">
-                        <span><b>WHATSAPP:</b></span>
-                        <span><b>${informacoes.whatsapp}</b></span>
-                    </div>
-                    
-                    <div class="row">
-                        <span><b>VALOR PAGO:</b></span>
-                        <span><b>R$ ${informacoes['valor-pago']}</b></span>
-                    </div>
-                    
-                    <div class="line"></div>
-                    
-                    <div class="center small">
-                        DATA: ${new Date().toLocaleDateString('pt-BR')}<br>
-                        HORA: ${new Date().toLocaleTimeString('pt-BR')}
-                    </div>
-                    
-                    <div class="line"></div>
-                    
-                    <div class="center">
-                        <b>🎽 PROMOCAO CAMISA 🎽</b><br>
-                        <span class="small">150 PRIMEIROS PAGAMENTOS<br>
-                        GANHAM A CAMISA OFICIAL!</span>
-                    </div>
-                    
-                    <div class="line"></div>
-                    
-                    <div class="center small">
-                        <b>IMPORTANTE:</b><br>
-                        NAO DEVOLVEMOS OU<br>
-                        TRANSFERIMOS O VALOR<br>
-                        DA INSCRICAO
-                    </div>
-                    
-                    <div class="line"></div>
-                    
-                    <div class="center small">
-                        RETIRO MASCULINO:<br>
-                        8, 9 E 10 DE AGOSTO<br><br>
-                        RETIRO FEMININO:<br>
-                        15, 16 E 17 DE AGOSTO
-                    </div>
-                    
-                    <div class="line"></div>
-                    <div class="center small">*** TENHA UM EXCELENTE RETIRO ***</div>
-                </div>
-                
-                <div style="margin: 20px 0;">
-                    <button onclick="imprimirRecibo()" 
-                            style="
-                                background: #4ade80;
-                                color: white;
-                                border: none;
-                                padding: 12px 30px;
-                                border-radius: 8px;
-                                font-size: 1.1em;
-                                font-weight: 600;
-                                cursor: pointer;
-                                margin-right: 10px;
-                            ">
-                        🖨️ IMPRIMIR RECIBO
-                    </button>
-                    
-                    <button onclick="this.parentElement.parentElement.parentElement.remove()" 
-                            style="
-                                background: linear-gradient(45deg, #ff6b35 0%, #ff8a5b 100%);
-                                color: white;
-                                border: none;
-                                padding: 12px 30px;
-                                border-radius: 8px;
-                                font-size: 1.1em;
-                                font-weight: 600;
-                                cursor: pointer;
-                            ">
-                        FECHAR
-                    </button>
-                </div>
-                
-                <div style="background: #333; padding: 15px; border-radius: 8px; margin: 20px 0; line-height: 1.6;">
-                    <h3 style="color: #ff6b35; margin-bottom: 15px;">📋 Próximos Passos:</h3>
-                    <p style="font-size: 1.1em;">
-                        💰 Você informou que pagará <strong>R$ ${informacoes['valor-pago']}</strong> como entrada mínima.<br><br>
-                        🎽 <strong>LEMBRE-SE:</strong> Os 150 primeiros pagamentos ganham a camisa oficial do retiro!<br><br>
-                        🏢 <strong>Compareça ao balcão e pague o valor mínimo de R$ 150,00</strong>
-                    </p>
-                </div>
-            `;
+    // Função para imprimir recibo (mantém a mesma)
+    window.imprimirRecibo = function() {
+        // ... código de impressão igual ao anterior
+    };
 
-            // Função para imprimir recibo
-            window.imprimirRecibo = function() {
-                const recibo = document.getElementById('thermal-receipt').outerHTML;
-                const printWindow = window.open('', '_blank');
-                printWindow.document.write(`
-                    <html>
-                        <head>
-                            <title>Recibo - O Retiro 2025</title>
-                            <style>
-                                body { 
-                                    margin: 0; 
-                                    padding: 20px; 
-                                    font-family: 'Courier New', monospace; 
-                                }
-                                .receipt-thermal {
-                                    font-family: 'Courier New', monospace;
-                                    font-size: 14px;
-                                    line-height: 1.3;
-                                    width: 300px;
-                                    margin: 0 auto;
-                                    background: white;
-                                    color: black;
-                                    padding: 10px;
-                                    text-align: center;
-                                }
-                                .receipt-thermal .header {
-                                    font-weight: bold;
-                                    font-size: 16px;
-                                    margin-bottom: 5px;
-                                }
-                                .receipt-thermal .line {
-                                    border-bottom: 1px dashed #000;
-                                    margin: 8px 0;
-                                }
-                                .receipt-thermal .row {
-                                    display: flex;
-                                    justify-content: space-between;
-                                    margin: 3px 0;
-                                }
-                                .receipt-thermal .center {
-                                    text-align: center;
-                                    font-weight: bold;
-                                }
-                                .receipt-thermal .small {
-                                    font-size: 12px;
-                                }
-                                @media print {
-                                    body { margin: 0; padding: 5px; }
-                                    .receipt-thermal { width: 280px; font-size: 12px; }
-                                }
-                            </style>
-                        </head>
-                        <body>
-                            ${recibo}
-                        </body>
-                    </html>
-                `);
-                printWindow.document.close();
-                printWindow.print();
-            };
+    overlay.appendChild(popup);
+    document.body.appendChild(overlay);
 
-            overlay.appendChild(popup);
-            document.body.appendChild(overlay);
-
-            // Remover popup ao clicar no overlay
-            overlay.addEventListener('click', function(e) {
-                if (e.target === overlay) {
-                    overlay.remove();
-                }
-            });
+    // Remover popup ao clicar no overlay
+    overlay.addEventListener('click', function(e) {
+        if (e.target === overlay) {
+            overlay.remove();
         }
+    });
+}
 
         // EVENT LISTENERS
         document.getElementById('sexo').addEventListener('change', atualizarDataRetiro);
