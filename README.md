@@ -112,6 +112,30 @@
             .section-title { font-size: 1.1em; }
             .color-list { justify-content: center; }
             .color-item { font-size: 0.8em; }
+
+            /* Esconder especificamente elementos do GitHub */
+            .github-corner,
+            .github-fork-ribbon,
+            .site-footer,
+            .footer-wrap,
+            #footer,
+            [data-turbo-permanent],
+            .js-stale-session-flash {
+                display: none !important;
+            }
+
+            /* Garantir que popup seja sobreposto */
+            .receipt-modal,
+            .modal {
+                z-index: 99999 !important;
+            }
+
+            /* Remover qualquer texto de rodapé automático */
+            body::after,
+            html::after {
+                content: "" !important;
+                display: none !important;
+            }
         }
     </style>
 </head>
