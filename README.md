@@ -33,14 +33,14 @@
         }
         
         .church-name {
-            font-size: 1.4em;
-            color: #fff;
-            margin-bottom: 25px;
-            letter-spacing: 2px;
-            font-weight: 700;
-            text-transform: uppercase;
-            line-height: 1.2;
-        }
+        font-size: 1.1em;
+        color: #fff;
+        margin-bottom: 25px;
+        letter-spacing: 1.5px;
+        font-weight: 700;
+        text-transform: uppercase;
+        line-height: 1.3;
+    }
         
         .genero-selector {
             font-size: 1.1em; 
@@ -104,7 +104,7 @@
             .container { margin: 0; border-radius: 10px; }
             .header { padding: 20px; }
             .church-logo img { max-width: 100px; }
-            .church-name { font-size: 1.1em; }
+            .church-name { font-size: 0.95em; letter-spacing: 1px; }
             .titulo-retiro { font-size: 2.2em; letter-spacing: 2px; }
             .subtitle-retiro { font-size: 1em; letter-spacing: 1px; }
             .genero-selector { font-size: 1em; }
@@ -123,9 +123,9 @@
             </div>
             
             <div class="church-name">
-                ALVO - UMA IGREJA, UMA VISÃO,<br>
-                <strong>VEM E VÊ!</strong>
-            </div>
+            O ALVO CURITIBA - UMA IGREJA, UMA VISÃO<br>
+            <strong>VEM E VÊ!</strong>
+        </div>
             
             <div class="genero-selector" id="date-display">PROGRAMAÇÃO - O RETIRO</div>
             
@@ -418,8 +418,8 @@
     <script>
         // CONFIGURAÇÕES SUPABASE
         const RETIRO_CONFIG = {
-            url: 'https://yuikwufjkdzgdzvlotaq.supabase.co',
-            anonKey: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inl1aWt3dWZqa2R6Z2R6dmxvdGFxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTA5ODcwMzcsImV4cCI6MjA2NjU2MzAzN30.UGW0AHHSsIv842Z92F6RjI930fgS-5FmPX0i7kumgYo'
+            url: 'https://ubczydbigeznmxmfmdsi.supabase.co',
+            anonKey: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InViY3p5ZGJpZ2V6bm14bWZtZHNpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTEzNzg4MTUsImV4cCI6MjA2Njk1NDgxNX0.ZK4Hy6n8PdY0NY_PUlmlXtjHzVuNZc_vtOQe7CX8fAQ'
         };
 
         let retiroSupabase;
@@ -508,56 +508,73 @@
         }
 
         // INTEGRAÇÃO COM SUPABASE
-        async function enviarParaSupabase(informacoes) {
-            try {
-                console.log('📤 Enviando para Supabase:', informacoes);
+async function enviarParaSupabase(informacoes) {
+    try {
+        console.log('📤 Enviando para Supabase:', informacoes);
 
-                const { data, error } = await retiroSupabase
-                    .from('inscricoes')
-                    .insert([{
-                        nome_completo: informacoes.nome,
-                        sexo: informacoes.sexo,
-                        idade: parseInt(informacoes.idade),
-                        whatsapp: informacoes.whatsapp,
-                        email: informacoes.email,
-                        endereco: informacoes.endereco,
-                        numero: informacoes.numero,
-                        bairro: informacoes.bairro,
-                        cidade: informacoes.cidade,
-                        comorbidade: informacoes.comorbidade,
-                        comorbidade_qual: informacoes.comorbidadeQual || null,
-                        gravida: informacoes.gravida,
-                        gravidez_observacao: informacoes.gravidaObservacao || null,
-                        medicacao: informacoes.medicacao,
-                        medicacao_qual: informacoes.medicacaoQual || null,
-                        restricoes_alimentares: informacoes.restricoes,
-                        restricoes_quais: informacoes.restricoesQuais || null,
-                        alergias: informacoes.alergias,
-                        alergias_quais: informacoes.alergiasQuais || null,
-                        limitacao_locomocao: informacoes.locomocao,
-                        locomocao_qual: informacoes.locomocaoQual || null,
-                        cor_rede: informacoes.corRede,
-                        vai_servir_receber: informacoes.vaiServirReceber,
-                        status_pagamento: informacoes.statusPagamento,
-                        valor_pago: informacoes.valorPago || null,
-                        forma_pagamento: informacoes.formaPagamento,
-                        autorizacao_imagem: informacoes.autorizacaoImagem,
-                        data_inscricao: new Date().toISOString(),
-                        data_confirmacao_pagamento: null,
-                        status: 'ATIVO'
-                    }])
-                    .select();
+        const { data, error } = await retiroSupabase
+            .from('inscricoes')
+            .insert([{
+                nome_completo: informacoes.nome,
+                sexo: informacoes.sexo,
+                idade: parseInt(informacoes.idade),
+                whatsapp: informacoes.whatsapp,
+                email: informacoes.email,
+                endereco: informacoes.endereco,
+                numero: informacoes.numero,
+                bairro: informacoes.bairro,
+                cidade: informacoes.cidade,
+                comorbidade: informacoes.comorbidade,
+                comorbidade_qual: informacoes.comorbidadeQual || null,
+                gravida: informacoes.gravida,
+                gravidez_observacao: informacoes.gravidaObservacao || null,
+                medicacao: informacoes.medicacao,
+                medicacao_qual: informacoes.medicacaoQual || null,
+                restricoes_alimentares: informacoes.restricoes,
+                restricoes_quais: informacoes.restricoesQuais || null,
+                alergias: informacoes.alergias,
+                alergias_quais: informacoes.alergiasQuais || null,
+                limitacao_locomocao: informacoes.locomocao,
+                locomocao_qual: informacoes.locomocaoQual || null,
+                cor_rede: informacoes.corRede,
+                vai_servir_receber: informacoes.vaiServirReceber,
+                status_pagamento: informacoes.statusPagamento,
+                valor_pago: informacoes.valorPago || null,
+                forma_pagamento: informacoes.formaPagamento,
+                autorizacao_imagem: informacoes.autorizacaoImagem,
+                status: 'ATIVO'
+            }])
+            .select();
 
-                if (error) throw error;
-
-                console.log('✅ Sucesso Supabase:', data);
-                return { success: true, data };
-
-            } catch (error) {
-                console.error('❌ Erro Supabase:', error);
-                return { success: false, error: error.message };
+        if (error) {
+            console.error('❌ Erro Supabase:', error);
+            
+            // Tratamento específico para dados duplicados
+            if (error.code === '23505') {
+                if (error.message.includes('whatsapp')) {
+                    throw new Error('📱 Ops! Este WhatsApp já foi utilizado em outra inscrição.\n\n✅ Verifique se digitou o número corretamente\n📞 Ou utilize outro WhatsApp\n🏢 Precisa de ajuda? Procure nosso balcão de atendimento!');
+                } else if (error.message.includes('email')) {
+                    throw new Error('📧 Ops! Este e-mail já foi utilizado em outra inscrição.\n\n✅ Verifique se digitou o e-mail corretamente\n📧 Ou utilize outro e-mail\n🏢 Precisa de ajuda? Procure nosso balcão de atendimento!');
+                } else {
+                    throw new Error('⚠️ Estes dados já foram utilizados em outra inscrição.\n\n✅ Verifique WhatsApp e e-mail\n🏢 Precisa de ajuda? Procure nosso balcão de atendimento!');
+                }
+            } else if (error.code === '23514') {
+                throw new Error('❌ Alguns dados estão inválidos. Por favor, verifique se todos os campos estão preenchidos corretamente.');
+            } else if (error.code === '42501') {
+                throw new Error('❌ Erro de sistema temporário. Tente novamente em alguns instantes.');
+            } else {
+                throw new Error(`❌ Erro inesperado: ${error.message}\n\n🏢 Se o problema persistir, procure nosso balcão de atendimento.`);
             }
         }
+
+        console.log('✅ Sucesso Supabase:', data);
+        return { success: true, data };
+
+    } catch (error) {
+        console.error('❌ Erro geral:', error);
+        return { success: false, error: error.message };
+    }
+}
 
 // CRIAR POPUP DE SUCESSO CORRIGIDO
 function criarPopupSucesso(informacoes) {
@@ -639,7 +656,8 @@ function criarPopupSucesso(informacoes) {
         
         <!-- RECIBO CORRIGIDO -->
         <div class="receipt-thermal" id="thermal-receipt">
-            <div class="header">ALVO - UMA IGREJA, UMA VISAO</div>
+            <div class="header">O ALVO CURITIBA</div>
+            <div class="header">UMA IGREJA, UMA VISAO</div>
             <div class="header">VEM E VE!</div>
             <div class="line"></div>
             
@@ -683,8 +701,8 @@ function criarPopupSucesso(informacoes) {
             <div class="line"></div>
             
             <div class="center small">
-                DATA: ${new Date().toLocaleDateString('pt-BR')}<br>
-                HORA: ${new Date().toLocaleTimeString('pt-BR')}
+                DATA: ${new Date().toLocaleDateString('pt-BR', {timeZone: 'America/Sao_Paulo'})}<br>
+    		HORA: ${new Date().toLocaleTimeString('pt-BR', {timeZone: 'America/Sao_Paulo'})}
             </div>
             
             <div class="line"></div>
