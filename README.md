@@ -6,7 +6,36 @@
     <title>O Retiro - Inscrições 2025</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: 'Segoe UI', sans-serif; background: linear-gradient(135deg, #1a1a1a, #2d2d2d); min-height: 100vh; color: white; padding: 20px; }
+        body { 
+        font-family: 'Segoe UI', sans-serif; 
+        background: linear-gradient(135deg, #1a1a1a, #2d2d2d) !important; 
+        min-height: 100vh; 
+        color: white; 
+        padding: 20px; 
+        margin: 0 !important;
+        }
+
+        /* ESCONDER CABEÇALHO DO GITHUB PAGES */
+        .repository-content,
+        .file-header,
+        .breadcrumb,
+        .js-details-container,
+        .Box-header,
+        h1:first-child,
+        .markdown-body > h1:first-child,
+        body > div:not(.container):first-child,
+        .application-main,
+        .Header,
+        .js-header-wrapper {
+            display: none !important;
+        }
+
+    /* FORÇAR CONTAINER PRINCIPAL */
+    .container {
+        position: relative !important;
+        z-index: 9999 !important;
+        margin-top: -50px !important;
+    }
         .container { max-width: 600px; margin: 0 auto; background: #000; border-radius: 15px; box-shadow: 0 20px 40px rgba(0,0,0,0.5); overflow: hidden; border: 1px solid #333; }
         
         .header { 
@@ -162,6 +191,10 @@
     </style>
 </head>
 <body>
+    <style>
+    body * { visibility: hidden; }
+    .container, .container * { visibility: visible !important; }
+    </style>
     <div class="container">
         <div class="header">
             <div class="church-logo">
