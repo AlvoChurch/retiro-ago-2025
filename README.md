@@ -7,7 +7,19 @@
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { font-family: 'Segoe UI', sans-serif; background: linear-gradient(135deg, #1a1a1a, #2d2d2d); min-height: 100vh; color: white; padding: 20px; }
+        /* ESCONDER TEXTO DOCTYPE */
+        body::before,
+        html::before {
+            content: none !important;
+            display: none !important;
+        }
 
+        .repository-content .Box-header,
+        .file-navigation .breadcrumb,
+        .markdown-body > h1:first-child,
+        .highlight-source-html {
+            display: none !important;
+        }
         /* ESCONDER APENAS CABEÇALHO DO GITHUB */
         .repository-content .Box-header,
         .file-navigation .breadcrumb,
@@ -114,65 +126,42 @@
         .color-dot.verde { background: #22c55e; }
         
         @media (max-width: 768px) {
-            body { padding: 10px; }
-            .container { margin: 0; border-radius: 10px; }
-            .header { padding: 20px; }
-            .church-logo img { max-width: 100px; }
-            .church-name { font-size: 0.95em; letter-spacing: 1px; }
-            .titulo-retiro { font-size: 2.2em; letter-spacing: 2px; }
-            .subtitle-retiro { font-size: 1em; letter-spacing: 1px; }
-            .genero-selector { font-size: 1em; }
-            .form-container { padding: 20px; }
-            .section-title { font-size: 1.1em; }
-            .color-list { justify-content: center; }
-            .color-item { font-size: 0.8em; }
+    body { padding: 10px; }
+    .container { margin: 0; border-radius: 10px; }
+    .header { padding: 20px; }
+    .church-logo img { max-width: 100px; }
+    .church-name { font-size: 0.95em; letter-spacing: 1px; }
+    .titulo-retiro { font-size: 2.2em; letter-spacing: 2px; }
+    .subtitle-retiro { font-size: 1em; letter-spacing: 1px; }
+    .genero-selector { font-size: 1em; }
+    .form-container { padding: 20px; }
+    .section-title { font-size: 1.1em; }
+    .color-list { justify-content: center; }
+    .color-item { font-size: 0.8em; }
 
-            /* Esconder especificamente elementos do GitHub */
-            .github-corner,
-            .github-fork-ribbon,
-            .site-footer,
-            .footer-wrap,
-            #footer,
-            [data-turbo-permanent],
-            .js-stale-session-flash,
-            .repository-content .Box-header,
-            .file-navigation,
-            .breadcrumb,
-            .js-details-container,
-            .Box-header,
-            .markdown-body h1:first-child,
-            [data-testid="readme"],
-            .repository-content > .Box > .Box-header,
-            .js-header-wrapper,
-            .Header,
-            body > div:first-child:not(.container),
-            .application-main .container-xl,
-            .BorderGrid,
-            .BorderGrid-row,
-            .BorderGrid-cell {
-                display: none !important;
-            }
+    /* Esconder elementos do GitHub - versão simplificada */
+    .repository-content,
+    .highlight-source-html,
+    .markdown-body > h1:first-child,
+    .Box-header,
+    .file-navigation,
+    .breadcrumb {
+        display: none !important;
+    }
 
-            /* Forçar apenas o container principal */
-            body > .container {
-                display: block !important;
-                position: relative !important;
-                z-index: 9999 !important;
-            }
+    /* Garantir que popup seja sobreposto */
+    .receipt-modal,
+    .modal {
+        z-index: 99999 !important;
+    }
 
-            /* Garantir que popup seja sobreposto */
-            .receipt-modal,
-            .modal {
-                z-index: 99999 !important;
-            }
-
-            /* Remover qualquer texto de rodapé automático */
-            body::after,
-            html::after {
-                content: "" !important;
-                display: none !important;
-            }
-        }
+    /* Remover qualquer texto de rodapé automático */
+    body::after,
+    html::after {
+        content: "" !important;
+        display: none !important;
+    }
+}
     </style>
 </head>
 <body>
