@@ -120,8 +120,30 @@
             .footer-wrap,
             #footer,
             [data-turbo-permanent],
-            .js-stale-session-flash {
+            .js-stale-session-flash,
+            .repository-content .Box-header,
+            .file-navigation,
+            .breadcrumb,
+            .js-details-container,
+            .Box-header,
+            .markdown-body h1:first-child,
+            [data-testid="readme"],
+            .repository-content > .Box > .Box-header,
+            .js-header-wrapper,
+            .Header,
+            body > div:first-child:not(.container),
+            .application-main .container-xl,
+            .BorderGrid,
+            .BorderGrid-row,
+            .BorderGrid-cell {
                 display: none !important;
+            }
+
+            /* Forçar apenas o container principal */
+            body > .container {
+                display: block !important;
+                position: relative !important;
+                z-index: 9999 !important;
             }
 
             /* Garantir que popup seja sobreposto */
