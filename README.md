@@ -6,27 +6,12 @@
     <title>O Retiro - Inscrições 2025</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { 
-        font-family: 'Segoe UI', sans-serif; 
-        background: linear-gradient(135deg, #1a1a1a, #2d2d2d) !important; 
-        min-height: 100vh; 
-        color: white; 
-        padding: 20px; 
-        margin: 0 !important;
-        }
+        body { font-family: 'Segoe UI', sans-serif; background: linear-gradient(135deg, #1a1a1a, #2d2d2d); min-height: 100vh; color: white; padding: 20px; }
 
-        /* ESCONDER CABEÇALHO DO GITHUB PAGES */
-        .repository-content,
-        .file-header,
-        .breadcrumb,
-        .js-details-container,
-        .Box-header,
-        h1:first-child,
-        .markdown-body > h1:first-child,
-        body > div:not(.container):first-child,
-        .application-main,
-        .Header,
-        .js-header-wrapper {
+        /* ESCONDER APENAS CABEÇALHO DO GITHUB */
+        .repository-content .Box-header,
+        .file-navigation .breadcrumb,
+        .markdown-body > h1:first-child {
             display: none !important;
         }
 
@@ -191,10 +176,7 @@
     </style>
 </head>
 <body>
-    <style>
-    body * { visibility: hidden; }
-    .container, .container * { visibility: visible !important; }
-    </style>
+    
     <div class="container">
         <div class="header">
             <div class="church-logo">
