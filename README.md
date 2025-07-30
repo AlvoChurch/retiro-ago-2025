@@ -432,8 +432,8 @@
                         <option value="">Selecione a forma de pagamento</option>
                         <option value="PIX">🏦 Pix</option>
                         <option value="DINHEIRO">💵 Dinheiro</option>
-                        <option value="CT-DÉBITO">💳 Cartão Débito</option>
-                        <option value="CT-CRÉDITO">💳 Cartão Crédito</option>
+                        <option value="CARTÃO DE DÉBITO">💳 Cartão Débito</option>
+                        <option value="CARTÃO DE CRÉDITO">💳 Cartão Crédito</option>
                     </select>
                 </div>
 
@@ -557,44 +557,57 @@
             });
         }
 
+        // ✅ FUNÇÃO PARA MAPEAR STATUS CORRETAMENTE
+        function mapearStatusPagamento(opcaoFormulario) {
+            switch(opcaoFormulario) {
+                case 'ENTRADA-PRÉ':
+                    return 'PAGO PARCIALMENTE';  // Vai pagar mínimo R$ 150
+                case 'RETIRO-INTEGRAL': 
+                    return 'PAGO';              // Vai pagar R$ 520 completo
+                case 'PAGAR-DIFERENÇA':
+                    return 'PAGO PARCIALMENTE'; // Vai pagar mais que R$ 150
+                default:
+                    return 'PENDENTE';          // Caso padrão
+            }
+        }
         // INTEGRAÇÃO COM SUPABASE
-async function enviarParaSupabase(informacoes) {
-    try {
-        console.log('📤 Enviando para Supabase:', informacoes);
+        async function enviarParaSupabase(informacoes) {
+            try {
+                console.log('📤 Enviando para Supabase:', informacoes);
 
-        const { data, error } = await retiroSupabase
-            .from('inscricoes')
-            .insert([{
-                nome_completo: informacoes.nome,
-                sexo: informacoes.sexo,
-                idade: parseInt(informacoes.idade),
-                whatsapp: informacoes.whatsapp,
-                email: informacoes.email,
-                endereco: informacoes.endereco,
-                numero: informacoes.numero,
-                bairro: informacoes.bairro,
-                cidade: informacoes.cidade,
-                comorbidade: informacoes.comorbidade,
-                comorbidade_qual: informacoes.comorbidadeQual || null,
-                gravida: informacoes.gravida,
-                gravidez_observacao: informacoes.gravidaObservacao || null,
-                medicacao: informacoes.medicacao,
-                medicacao_qual: informacoes.medicacaoQual || null,
-                restricoes_alimentares: informacoes.restricoes,
-                restricoes_quais: informacoes.restricoesQuais || null,
-                alergias: informacoes.alergias,
-                alergias_quais: informacoes.alergiasQuais || null,
-                limitacao_locomocao: informacoes.locomocao,
-                locomocao_qual: informacoes.locomocaoQual || null,
-                cor_rede: informacoes.corRede,
-                vai_servir_receber: informacoes.vaiServirReceber,
-                status_pagamento: informacoes.statusPagamento,
-                valor_pago: informacoes.valorPago || null,
-                forma_pagamento: informacoes.formaPagamento,
-                autorizacao_imagem: informacoes.autorizacaoImagem,
-                status: 'ATIVO'
-            }])
-            .select();
+                const { data, error } = await retiroSupabase
+                    .from('inscricoes')
+                    .insert([{
+                        nome_completo: informacoes.nome,
+                        sexo: informacoes.sexo,
+                        idade: parseInt(informacoes.idade),
+                        whatsapp: informacoes.whatsapp,
+                        email: informacoes.email,
+                        endereco: informacoes.endereco,
+                        numero: informacoes.numero,
+                        bairro: informacoes.bairro,
+                        cidade: informacoes.cidade,
+                        comorbidade: informacoes.comorbidade,
+                        comorbidade_qual: informacoes.comorbidadeQual || null,
+                        gravida: informacoes.gravida,
+                        gravidez_observacao: informacoes.gravidaObservacao || null,
+                        medicacao: informacoes.medicacao,
+                        medicacao_qual: informacoes.medicacaoQual || null,
+                        restricoes_alimentares: informacoes.restricoes,
+                        restricoes_quais: informacoes.restricoesQuais || null,
+                        alergias: informacoes.alergias,
+                        alergias_quais: informacoes.alergiasQuais || null,
+                        limitacao_locomocao: informacoes.locomocao,
+                        locomocao_qual: informacoes.locomocaoQual || null,
+                        cor_rede: informacoes.corRede,
+                        vai_servir_receber: informacoes.vaiServirReceber,
+                        status_pagamento: mapearStatusPagamento(informacoes.statusPagamento),
+                        valor_pago: informacoes.valorPago || null,
+                        forma_pagamento: informacoes.formaPagamento,
+                        autorizacao_imagem: informacoes.autorizacaoImagem,
+                        status: 'ATIVO'
+                    }])
+                    .select();
 
         if (error) {
             console.error('❌ Erro Supabase:', error);
@@ -974,7 +987,7 @@ function criarPopupSucesso(informacoes) {
                 locomocaoQual: informacoes['locomocao-qual'] || '',
                 corRede: informacoes['cor-rede'],
                 vaiServirReceber: informacoes['vai-servir-receber'],
-                statusPagamento: informacoes.pagamento,
+                statusPagamento: 'PENDENTE',
                 valorPago: informacoes['valor-pago'] || '',
                 formaPagamento: informacoes['forma-pagamento'],
                 autorizacaoImagem: informacoes['autorizacao-imagem'] ? 'SIM' : 'NÃO'
